@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Computing — Module 4 & 5 Exam Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --accent1: #00e5ff;
+    --accent2: #ffd600;
+    --accent3: #ff6d00;
+    --accent4: #69ff47;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --mod4: #00e5ff;
+    --mod5: #ffd600;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cover {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .cover h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+  .cover p {
+    color: var(--muted);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+  }
+  .cover .tags {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .toc h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; font-family: 'IBM Plex Mono', monospace; }
+  .toc ul { list-style: none; }
+  .toc li { padding: 0.2rem 0; }
+  .toc a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+  .toc a:hover { color: var(--accent1); }
+  .toc .mod-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; margin-right: 0.5rem; }
+  .m4 { color: var(--mod4); }
+  .m5 { color: var(--mod5); }
+
+  .module-header {
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin: 3rem 0 2rem;
+    border-left: 4px solid;
+  }
+  .module-header.m4 { background: rgba(0,229,255,0.07); border-color: var(--mod4); }
+  .module-header.m5 { background: rgba(255,214,0,0.07); border-color: var(--mod5); }
+  .module-header h2 { font-size: 1.6rem; font-weight: 700; }
+  .module-header p { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  .section {
+    margin: 2rem 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 0.8rem 1.2rem;
+    background: var(--surface);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-header .num {
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'IBM Plex Sans', sans-serif;
+    color: var(--text);
+  }
+  .section-body { padding: 1.2rem 1.5rem; }
+
+  h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3:first-child { margin-top: 0; }
+
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent1);
+    margin: 1rem 0 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  p { margin: 0.5rem 0; }
+
+  ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+  ul li { margin: 0.2rem 0; }
+
+  .grid { display: grid; gap: 1rem; margin: 1rem 0; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+  }
+  .card h5 {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  .card p, .card li { font-size: 0.875rem; color: var(--muted); }
+  .card ul { padding-left: 1rem; }
+
+  .highlight {
+    background: rgba(0,229,255,0.06);
+    border-left: 3px solid var(--accent1);
+    padding: 0.8rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin: 0.8rem 0;
+    font-size: 0.9rem;
+  }
+  .highlight.warn {
+    background: rgba(255,214,0,0.06);
+    border-color: var(--accent2);
+  }
+  .highlight.tip {
+    background: rgba(105,255,71,0.06);
+    border-color: var(--accent4);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+  }
+  th {
+    background: var(--surface);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  td {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text);
+  }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    margin-left: 0.3rem;
+  }
+  .badge-blue { background: rgba(0,229,255,0.15); color: var(--accent1); }
+  .badge-yellow { background: rgba(255,214,0,0.15); color: var(--accent2); }
+  .badge-orange { background: rgba(255,109,0,0.15); color: var(--accent3); }
+
+  .pq {
+    background: rgba(255,109,0,0.05);
+    border: 1px solid rgba(255,109,0,0.3);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+  .pq .pq-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent3);
+    margin-bottom: 0.4rem;
+  }
+  .pq ul { padding-left: 1rem; color: var(--muted); }
+
+  .diagram-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    white-space: pre;
+    overflow-x: auto;
+    color: var(--accent1);
+    margin: 1rem 0;
+  }
+
+  .def {
+    font-weight: 600;
+    color: var(--accent1);
+  }
+
+  @media(max-width:700px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    body { padding: 1rem; }
+  }
+
+  .print-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'IBM Plex Mono', monospace;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>Cloud Computing — Exam Notes</h1>
+  <p>K.J. Somaiya College of Engineering · B.Tech IT · Sem VI · 2UIC603</p>
+  <div class="tags">
+    <span class="tag">Module 4 — Architecture of Cloud & IoT</span>
+    <span class="tag">Module 5 — Security & Cost Management</span>
+    <span class="tag">Past Papers: 2022–2025</span>
+  </div>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ul>
+    <li><span class="mod-label m4">4.1</span><a href="#s41">Eucalyptus & OpenStack — Architecture, Features, Modes</a></li>
+    <li><span class="mod-label m4">4.2</span><a href="#s42">AWS, Microsoft Azure & Google App Engine</a></li>
+    <li><span class="mod-label m4">4.3</span><a href="#s43">IoT and Cloud Computing</a></li>
+    <li><span class="mod-label m4">4.4</span><a href="#s44">Edge Computing & Fog Computing</a></li>
+    <li><span class="mod-label m5">5.1</span><a href="#s51">Security Issues in Cloud</a></li>
+    <li><span class="mod-label m5">5.2</span><a href="#s52">Host & Data Security in SaaS, PaaS, IaaS</a></li>
+    <li><span class="mod-label m5">5.3</span><a href="#s53">Cloud Cost Optimization & FinOps</a></li>
+  </ul>
+</div>
+
+<!-- ======================================================= MODULE 4 -->
+<div class="module-header m4">
+  <h2>Module 4 — Architecture of Cloud and IoT</h2>
+  <p>Eucalyptus · OpenStack · AWS · Azure · Google App Engine · IoT · Edge · Fog</p>
+</div>
+
+<!-- 4.1 -->
+<div class="section" id="s41">
+  <div class="section-header">
+    <span class="num m4">4.1</span>
+    Eucalyptus &amp; OpenStack — Architecture, Features, Modes of Operation
+  </div>
+  <div class="section-body">
+
+    <h3>Eucalyptus</h3>
+    <p><span class="def">Eucalyptus</span> (Elastic Utility Computing Architecture for Linking Your Programs To Useful Systems) is an <strong>open-source platform</strong> for building <strong>private and hybrid clouds</strong>. It is compatible with Amazon EC2/S3 APIs, meaning you can use the same tools you use with AWS on a private cloud.</p>
+
+    <h4>Architecture Components</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>☁ Cloud Controller (CLC)</h5>
+        <ul>
+          <li>Top-level component (brain of the cloud)</li>
+          <li>Manages entire cloud resources</li>
+          <li>Handles user/admin interface</li>
+          <li>Interacts with other components</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>🏢 Cluster Controller (CC)</h5>
+        <ul>
+          <li>Manages a group of nodes (one per availability zone)</li>
+          <li>Schedules VMs on node controllers</li>
+          <li>Manages virtual networking</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>💻 Node Controller (NC)</h5>
+        <ul>
+          <li>Runs on each physical machine</li>
+          <li>Directly manages VMs (using KVM/Xen hypervisor)</li>
+          <li>Reports resource availability to CC</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>📦 Walrus Storage Controller (WSC)</h5>
+        <ul>
+          <li>S3-compatible object storage</li>
+          <li>Stores VM images, snapshots, user data</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>🗄 Storage Controller (SC)</h5>
+        <ul>
+          <li>EBS-compatible block storage</li>
+          <li>Provides persistent storage for VMs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>🌐 VMware Broker (optional)</h5>
+        <ul>
+          <li>Integrates with VMware infrastructure</li>
+          <li>Allows hybrid setups</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="diagram-box">
+Cloud Controller (CLC)
+        |
+   ─────────────────
+   |               |
+Cluster        Walrus
+Controller     (Object Storage)
+(CC)               |
+   |           Storage
+   |           Controller (SC)
+   ──────────────────────
+   |         |         |
+  NC1       NC2       NC3
+ (VMs)    (VMs)     (VMs)
+    </div>
+
+    <h4>Modes of Operation</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>MANAGED Mode</h5>
+        <ul>
+          <li>Full network management by Eucalyptus</li>
+          <li>Uses VLAN tagging for isolation</li>
+          <li>Supports security groups, elastic IPs</li>
+          <li>Most feature-rich mode</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>MANAGED-NOVLAN Mode</h5>
+        <ul>
+          <li>Like MANAGED but without VLANs</li>
+          <li>Simpler networking — no VLAN-capable switches needed</li>
+          <li>Still supports security groups</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>SYSTEM Mode</h5>
+        <ul>
+          <li>Least control — physical network handles everything</li>
+          <li>VMs get IPs from the existing DHCP server</li>
+          <li>No isolation between users</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>STATIC Mode</h5>
+        <ul>
+          <li>Static IPs assigned manually to VMs</li>
+          <li>Eucalyptus manages IP assignment from a pool</li>
+          <li>Good for stable, fixed IP environments</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Key Features of Eucalyptus</h4>
+    <ul>
+      <li>AWS-compatible APIs (EC2, S3, EBS, IAM)</li>
+      <li>Supports multiple hypervisors: KVM, Xen, VMware</li>
+      <li>Private and hybrid cloud deployment</li>
+      <li>Role-based access control</li>
+      <li>VM image management</li>
+      <li>Open-source and highly customizable</li>
+    </ul>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions (Eucalyptus)</div>
+      <ul>
+        <li>Draw neat diagram of Eucalyptus and explain its components [2022 Q4a, 2024 Q2A]</li>
+        <li>Explain features of Eucalyptus [2024 Q2A]</li>
+        <li>Explain modes of operation of Eucalyptus [2023 Q2B-ii]</li>
+        <li>Compare architectures of Eucalyptus, OpenStack, and Nimbus [2025 Q3i]</li>
+      </ul>
+    </div>
+
+    <!-- OpenStack -->
+    <h3>OpenStack</h3>
+    <p><span class="def">OpenStack</span> is a free, open-source cloud computing platform used to build and manage both <strong>public and private clouds</strong>. It provides Infrastructure as a Service (IaaS) through a set of interrelated services, each controlling a specific aspect of the cloud.</p>
+
+    <h4>Key Components (Services)</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Nova (Compute)</h5>
+        <ul>
+          <li>Core of OpenStack — manages VMs</li>
+          <li>Handles scheduling, creating, and terminating VMs</li>
+          <li>Works with hypervisors: KVM, Xen, VMware, Hyper-V</li>
+          <li>Sub-parts: Nova API, Scheduler, Conductor, Nova-compute</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Neutron (Networking)</h5>
+        <ul>
+          <li>Manages networking for OpenStack</li>
+          <li>Creates virtual networks, routers, subnets</li>
+          <li>Supports VLANs, VxLAN, plugins</li>
+          <li>DHCP/IPAM and firewall services</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Cinder (Block Storage)</h5>
+        <ul>
+          <li>Persistent block storage (like a hard drive for VMs)</li>
+          <li>Similar to AWS EBS</li>
+          <li>Manages volumes, snapshots, backups</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Swift (Object Storage)</h5>
+        <ul>
+          <li>Stores unstructured data — files, images, backups</li>
+          <li>Like AWS S3</li>
+          <li>Proxy server + Object store architecture</li>
+          <li>Highly scalable and redundant</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Keystone (Identity)</h5>
+        <ul>
+          <li>Authentication and authorization service</li>
+          <li>Manages users, roles, tenants, tokens</li>
+          <li>Central "gatekeeper" — all services talk to it</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Glance (Image Service)</h5>
+        <ul>
+          <li>Stores and retrieves VM disk images</li>
+          <li>Supports multiple formats: QCOW2, VMDK, RAW</li>
+          <li>Glance API + Glance DB + Registry</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Horizon (Dashboard)</h5>
+        <ul>
+          <li>Web-based UI for managing OpenStack</li>
+          <li>Admin and user dashboards</li>
+          <li>Provides a graphical alternative to CLI</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Ceilometer (Telemetry)</h5>
+        <ul>
+          <li>Collects usage/monitoring data</li>
+          <li>Used for billing, metering, alerting</li>
+          <li>Components: Ceilometer API, Agent, Collector</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="diagram-box">
+User → Horizon (UI) or CLI
+           |
+    ───────────────────────────────────────────────────
+    |           |           |          |       |       |
+  Nova       Neutron     Cinder     Swift  Glance  Ceilometer
+(Compute)  (Network)   (Block)   (Object) (Image) (Metering)
+    |           |                              
+ Compute    Network Node   Block Storage    
+   Node    DHCP/Router    (Physical disk)  
+  (VMs+Hypervisor)
+    |
+  All services authenticate via KEYSTONE
+    </div>
+
+    <div class="highlight">
+      <strong>Easy way to remember OpenStack services:</strong> Nova (VMs), Neutron (Networks), Cinder (block Storage), Swift (object Storage), Keystone (Keys/auth), Glance (images), Horizon (HTML dashboard), Ceilometer (Counting usage).
+    </div>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions (OpenStack)</div>
+      <ul>
+        <li>Draw neat diagram of OpenStack and explain [2022 Q4b, 2023 Q2B-i, 2024 Q2B-ii]</li>
+        <li>Compare AWS, GCP, OpenStack [2023 Q5-i]</li>
+        <li>Design hybrid cloud solution using OpenStack [2025 Q4i]</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4.2 -->
+<div class="section" id="s42">
+  <div class="section-header">
+    <span class="num m4">4.2</span>
+    AWS, Microsoft Azure &amp; Google App Engine — Architecture, Features, Comparison
+  </div>
+  <div class="section-body">
+
+    <h3>Amazon Web Services (AWS)</h3>
+    <p>AWS is the world's leading cloud platform by market share. It offers 200+ services across computing, storage, networking, AI/ML, databases, and more.</p>
+
+    <h4>Architecture / Key Services</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Compute</h5>
+        <ul>
+          <li>EC2 — Virtual machines (IaaS)</li>
+          <li>Lambda — Serverless functions</li>
+          <li>Elastic Beanstalk — PaaS for web apps</li>
+          <li>ECS/EKS — Container services</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Storage</h5>
+        <ul>
+          <li>S3 — Object storage (unlimited)</li>
+          <li>EBS — Block storage for EC2</li>
+          <li>Glacier — Archival storage</li>
+          <li>EFS — Elastic file system</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Networking</h5>
+        <ul>
+          <li>VPC — Virtual private cloud</li>
+          <li>Route 53 — DNS service</li>
+          <li>CloudFront — CDN</li>
+          <li>Elastic Load Balancer (ELB)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Database & Other</h5>
+        <ul>
+          <li>RDS — Relational DB (MySQL, PostgreSQL)</li>
+          <li>DynamoDB — NoSQL DB</li>
+          <li>IAM — Identity and Access Management</li>
+          <li>CloudWatch — Monitoring</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="diagram-box">
+AWS Architecture (Simplified):
+
+  Region (e.g., ap-south-1 Mumbai)
+  ┌──────────────────────────────────────────┐
+  │  Availability Zone A   Availability Zone B│
+  │  ┌────────────┐         ┌────────────┐   │
+  │  │ EC2 + EBS  │         │ EC2 + EBS  │   │
+  │  │ (VMs)      │         │ (VMs)      │   │
+  │  └────────────┘         └────────────┘   │
+  │        VPC (Virtual Private Cloud)        │
+  │  S3 (Global) | RDS | Lambda | IAM        │
+  └──────────────────────────────────────────┘
+         CloudFront (CDN) → End Users
+    </div>
+
+    <h4>Advantages of AWS</h4>
+    <ul>
+      <li>Largest service catalog and global infrastructure (33+ regions)</li>
+      <li>Pay-as-you-go pricing, highly scalable</li>
+      <li>Strong security and compliance certifications</li>
+      <li>Mature ecosystem — huge developer community</li>
+      <li>Leader in AI/ML (SageMaker, Rekognition)</li>
+    </ul>
+
+    <h4>Disadvantages of AWS</h4>
+    <ul>
+      <li>Complex pricing — can lead to bill shock</li>
+      <li>Steep learning curve for beginners</li>
+      <li>Vendor lock-in risk (proprietary services)</li>
+      <li>Support costs can be high</li>
+    </ul>
+
+    <!-- Azure -->
+    <h3>Microsoft Azure</h3>
+    <p>Azure is Microsoft's cloud platform — the second largest globally. Its biggest strength is deep integration with Microsoft products (Windows, Office 365, Active Directory).</p>
+
+    <h4>Key Services</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Compute</h5>
+        <ul>
+          <li>Azure Virtual Machines (IaaS)</li>
+          <li>Azure Functions — Serverless</li>
+          <li>Azure Kubernetes Service (AKS)</li>
+          <li>Azure App Service — PaaS</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Storage & DB</h5>
+        <ul>
+          <li>Azure Blob Storage — Object storage</li>
+          <li>Azure Disk Storage — Block storage</li>
+          <li>Azure SQL Database</li>
+          <li>Cosmos DB — NoSQL, globally distributed</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Networking & Identity</h5>
+        <ul>
+          <li>Azure Virtual Network (VNet)</li>
+          <li>Azure Active Directory (AAD) — Identity mgmt</li>
+          <li>Azure CDN, Azure Load Balancer</li>
+          <li>ExpressRoute — dedicated connection</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Unique Strengths</h5>
+        <ul>
+          <li>Best hybrid cloud (Azure Arc)</li>
+          <li>Microsoft 365 / Teams / Office integration</li>
+          <li>GitHub + DevOps tools</li>
+          <li>Azure AI + Cognitive Services</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Advantages</h4>
+    <ul>
+      <li>Best choice for enterprises using Microsoft products</li>
+      <li>Strong hybrid cloud support (Azure Stack)</li>
+      <li>Enterprise-grade security and compliance</li>
+      <li>Good support for Windows-based workloads</li>
+    </ul>
+
+    <h4>Disadvantages</h4>
+    <ul>
+      <li>Complex pricing (often confusing)</li>
+      <li>Performance can lag behind AWS in some regions</li>
+      <li>Some services are less mature than AWS equivalents</li>
+    </ul>
+
+    <!-- Google App Engine -->
+    <h3>Google App Engine (GAE)</h3>
+    <p><span class="def">Google App Engine</span> is a fully managed <strong>PaaS</strong> (Platform as a Service) offered by Google Cloud Platform (GCP). You just write your app code, and Google handles everything else — servers, scaling, OS updates, etc.</p>
+
+    <h4>Architecture</h4>
+    <div class="diagram-box">
+Developer → Uploads Code (Python/Java/Go/Node.js/PHP/Ruby)
+                    |
+           Google App Engine
+         ┌──────────────────┐
+         │  Frontend Servers │ ← handles HTTP requests
+         │  App Servers      │ ← runs your app code
+         │  Auto-Scaler      │ ← scales instances automatically
+         │  Datastore (DB)   │ ← NoSQL database
+         │  Memcache         │ ← caching layer
+         │  Task Queue       │ ← background jobs
+         └──────────────────┘
+                    |
+           Google's Global Infrastructure
+    </div>
+
+    <h4>Features of Google App Engine</h4>
+    <ul>
+      <li><strong>Standard Environment</strong> — sandboxed, highly restricted, very fast scaling (even to zero). Supports Python, Java, Go, PHP, Node.js</li>
+      <li><strong>Flexible Environment</strong> — runs Docker containers, more customizable, always has at least one instance running</li>
+      <li>Automatic scaling based on traffic</li>
+      <li>Built-in versioning — deploy multiple versions and split traffic between them</li>
+      <li>Integrated with Google Cloud Storage, BigQuery, Cloud SQL</li>
+      <li>Free tier available (daily quotas)</li>
+    </ul>
+
+    <h4>Advantages</h4>
+    <ul>
+      <li>Zero server management — pure PaaS</li>
+      <li>Scales automatically from 0 to millions of requests</li>
+      <li>Easy deployment (gcloud app deploy)</li>
+      <li>Cost-effective for variable traffic workloads</li>
+    </ul>
+
+    <h4>Disadvantages</h4>
+    <ul>
+      <li>Less control over underlying infrastructure</li>
+      <li>Standard environment has restrictions (no custom binaries)</li>
+      <li>Vendor lock-in risk</li>
+      <li>Cold start latency in standard environment</li>
+    </ul>
+
+    <!-- Comparison Table -->
+    <h3>Comparison: AWS vs Azure vs Google App Engine / GCP</h3>
+    <table>
+      <tr>
+        <th>Feature</th>
+        <th>AWS</th>
+        <th>Microsoft Azure</th>
+        <th>Google App Engine/GCP</th>
+      </tr>
+      <tr>
+        <td>Service Model</td>
+        <td>IaaS + PaaS + SaaS</td>
+        <td>IaaS + PaaS + SaaS</td>
+        <td>Primarily PaaS (GAE); full IaaS via GCP</td>
+      </tr>
+      <tr>
+        <td>Market Position</td>
+        <td>Leader (#1)</td>
+        <td>Second (#2)</td>
+        <td>Third (#3)</td>
+      </tr>
+      <tr>
+        <td>Compute</td>
+        <td>EC2, Lambda</td>
+        <td>Azure VMs, Functions</td>
+        <td>App Engine, Compute Engine, Cloud Functions</td>
+      </tr>
+      <tr>
+        <td>Storage</td>
+        <td>S3, EBS, Glacier</td>
+        <td>Blob, Disk, Archive</td>
+        <td>Cloud Storage, Persistent Disk</td>
+      </tr>
+      <tr>
+        <td>Database</td>
+        <td>RDS, DynamoDB</td>
+        <td>Azure SQL, Cosmos DB</td>
+        <td>Cloud SQL, Firestore, BigQuery</td>
+      </tr>
+      <tr>
+        <td>Identity/Auth</td>
+        <td>AWS IAM</td>
+        <td>Azure Active Directory</td>
+        <td>Google IAM, Firebase Auth</td>
+      </tr>
+      <tr>
+        <td>Strength</td>
+        <td>Largest service variety; enterprise-ready</td>
+        <td>Microsoft ecosystem integration; hybrid cloud</td>
+        <td>AI/ML, Data analytics, Big Data</td>
+      </tr>
+      <tr>
+        <td>Weakness</td>
+        <td>Complex pricing, steep learning curve</td>
+        <td>Less mature some services; licensing costs</td>
+        <td>Smaller ecosystem than AWS; fewer services</td>
+      </tr>
+      <tr>
+        <td>Networking</td>
+        <td>VPC, Route 53, CloudFront</td>
+        <td>VNet, Azure CDN, ExpressRoute</td>
+        <td>VPC, Cloud CDN, Cloud Interconnect</td>
+      </tr>
+      <tr>
+        <td>Best For</td>
+        <td>General-purpose, startups to enterprise</td>
+        <td>Enterprises using Microsoft stack</td>
+        <td>Web apps, AI/ML, Big Data</td>
+      </tr>
+    </table>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions</div>
+      <ul>
+        <li>Draw and explain architecture of Google App Engine [2023 Q5-v, 2024 Q2A]</li>
+        <li>Discuss strengths & weaknesses of AWS, Azure, Google App Engine [2025 Q3ii]</li>
+        <li>Compare AWS, GCP, OpenStack [2023 Q5-i]</li>
+        <li>Explain IAM with respect to any public cloud [2022 Q5c]</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4.3 -->
+<div class="section" id="s43">
+  <div class="section-header">
+    <span class="num m4">4.3</span>
+    IoT and Cloud Computing
+  </div>
+  <div class="section-body">
+
+    <h3>What is IoT?</h3>
+    <p><span class="def">Internet of Things (IoT)</span> refers to the network of physical devices (sensors, cameras, smart appliances, vehicles, etc.) that are connected to the internet and can collect and share data automatically — without human intervention.</p>
+
+    <p><strong>Examples:</strong> Smart thermostats, fitness bands, smart home devices, industrial sensors, connected cars, hospital patient monitors.</p>
+
+    <h3>IoT and Cloud Computing — Why They Need Each Other</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>What IoT Needs from Cloud</h5>
+        <ul>
+          <li>Massive storage for sensor data</li>
+          <li>Computing power to analyze data in real-time</li>
+          <li>Scalability (millions of devices)</li>
+          <li>Remote management of devices</li>
+          <li>Cost-effective infrastructure (pay-as-you-go)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>What Cloud Gets from IoT</h5>
+        <ul>
+          <li>Continuous stream of real-world data</li>
+          <li>New use cases (smart cities, healthcare, industry)</li>
+          <li>Revenue from IoT services</li>
+          <li>Greater adoption across industries</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>IoT Working Model with Cloud</h3>
+    <div class="diagram-box">
+IoT Devices       Edge/Gateway       Cloud Platform        Applications
+(Sensors,    →   (Local Processing  →   (AWS IoT,         →  (Dashboard,
+ Cameras,         & data filtering)      Azure IoT Hub,       Alerts, Analytics,
+ Actuators)                             Google IoT Core)     Mobile Apps)
+    </div>
+
+    <h3>Benefits of IoT Cloud (Functions of IoT Cloud)</h3>
+    <ul>
+      <li><strong>Scalability</strong> — Easily scale from 100 to 1 million devices</li>
+      <li><strong>Data Storage</strong> — Cloud stores massive amounts of sensor time-series data</li>
+      <li><strong>Real-time Analytics</strong> — Process and analyze data as it arrives (stream processing)</li>
+      <li><strong>Remote Management</strong> — Update device firmware, monitor health, reboot remotely</li>
+      <li><strong>Cost Efficiency</strong> — No need for own data centers; pay for what you use</li>
+      <li><strong>Security</strong> — Cloud provides encryption, authentication for devices</li>
+      <li><strong>AI/ML Integration</strong> — Run machine learning on IoT data for predictions (predictive maintenance)</li>
+      <li><strong>High Availability</strong> — Cloud ensures data is always accessible</li>
+    </ul>
+
+    <h3>Comparison: IoT vs Cloud Computing</h3>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>IoT</th>
+        <th>Cloud Computing</th>
+      </tr>
+      <tr>
+        <td>Definition</td>
+        <td>Network of physical devices generating real-world data</td>
+        <td>On-demand computing resources delivered over internet</td>
+      </tr>
+      <tr>
+        <td>Location</td>
+        <td>At the edge — devices are distributed everywhere</td>
+        <td>Centralized — data centers in specific locations</td>
+      </tr>
+      <tr>
+        <td>Data Generation</td>
+        <td>Generates data (sensors, cameras)</td>
+        <td>Processes and stores data</td>
+      </tr>
+      <tr>
+        <td>Processing</td>
+        <td>Limited local processing (edge)</td>
+        <td>Massive centralized processing power</td>
+      </tr>
+      <tr>
+        <td>Latency</td>
+        <td>Real-time response needed (low latency)</td>
+        <td>Some latency due to distance from devices</td>
+      </tr>
+      <tr>
+        <td>Relationship</td>
+        <td>IoT generates data that cloud processes</td>
+        <td>Cloud provides storage/compute for IoT</td>
+      </tr>
+    </table>
+
+    <h3>Role of Cloud Computing in IoT</h3>
+    <ul>
+      <li><strong>Device Management:</strong> Register, authenticate, monitor, and update IoT devices at scale</li>
+      <li><strong>Data Ingestion:</strong> Handle millions of concurrent data streams (AWS Kinesis, Azure Event Hub)</li>
+      <li><strong>Storage:</strong> Store historical sensor data cheaply in cloud databases (time-series DBs)</li>
+      <li><strong>Processing:</strong> Run analytics, ML models on IoT data</li>
+      <li><strong>Notification:</strong> Trigger alerts and actions based on sensor readings</li>
+    </ul>
+
+    <h4>Cloud IoT Platforms</h4>
+    <ul>
+      <li>AWS IoT Core — connects billions of devices, integrates with Lambda, S3</li>
+      <li>Microsoft Azure IoT Hub — enterprise IoT, Azure Digital Twins</li>
+      <li>Google Cloud IoT Core — analytics with BigQuery, Pub/Sub</li>
+    </ul>
+
+    <div class="highlight warn">
+      <strong>Key Quote for Exam:</strong> "Cloud computing enables scalability, whereas IoT enables context-awareness. The real power lies in their convergence." IoT devices collect context (temperature, location, state); cloud provides the scale to process it.
+    </div>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions</div>
+      <ul>
+        <li>Describe benefits and functions of IoT cloud [2023 Q1-iv]</li>
+        <li>Explain IoT and cloud working model with neat diagram [2024 Q2B-i]</li>
+        <li>Need of Cloud for IoT [2024 Q5-v]</li>
+        <li>Critically analyse convergence of Cloud and IoT [2025 Q3iii]</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 4.4 -->
+<div class="section" id="s44">
+  <div class="section-header">
+    <span class="num m4">4.4</span>
+    Introduction to Edge Computing &amp; Fog Computing
+  </div>
+  <div class="section-body">
+
+    <h3>The Problem with Pure Cloud for IoT</h3>
+    <p>When IoT devices send ALL data to the cloud for processing, there are issues: <strong>high latency</strong> (delay in response), <strong>bandwidth consumption</strong> (huge data transfer costs), and <strong>privacy concerns</strong> (sensitive data leaving the device). Edge and Fog computing solve this.</p>
+
+    <h3>Edge Computing</h3>
+    <p><span class="def">Edge Computing</span> means processing data <strong>right at the source</strong> (or very close to it) — on the IoT device itself or a gateway nearby — instead of sending it all to a distant cloud data center.</p>
+
+    <h4>How It Works</h4>
+    <div class="diagram-box">
+IoT Device (Temperature Sensor)
+        |
+  Edge Device (Raspberry Pi / Local Server)
+  ← Data processed HERE (filter, analyze, act) 
+        |
+  Only relevant/summarized data sent to Cloud
+        |
+  Cloud (Long-term storage, big analytics, AI training)
+    </div>
+
+    <h4>Features / Characteristics</h4>
+    <ul>
+      <li>Very low latency — decisions made in milliseconds locally</li>
+      <li>Reduces bandwidth usage — only important data goes to cloud</li>
+      <li>Works offline — can operate even without internet connection</li>
+      <li>More data privacy — sensitive data doesn't leave the premises</li>
+      <li>Physical devices do real-time processing (edge nodes)</li>
+    </ul>
+
+    <h4>Applications</h4>
+    <ul>
+      <li>Self-driving cars — split-second decisions can't wait for cloud</li>
+      <li>Manufacturing — detect defects on assembly line in real-time</li>
+      <li>Healthcare — real-time patient monitoring with local alerts</li>
+      <li>Smart cameras — face recognition processed on the camera itself</li>
+    </ul>
+
+    <h3>Fog Computing</h3>
+    <p><span class="def">Fog Computing</span> is an extension of edge computing that creates a <strong>distributed computing layer between IoT devices and the cloud</strong>. Fog nodes (like routers, gateways, micro-servers) act as an intermediate processing layer. Think of it as "cloud brought closer to the ground" — like fog is a cloud that's low to the earth.</p>
+
+    <h4>Fog Architecture (3-Layer Model)</h4>
+    <div class="diagram-box">
+Layer 3: Cloud Layer
+         (Centralized storage, deep analytics, AI training)
+              ↑ summarized data only
+Layer 2: Fog Layer  ← THE KEY LAYER
+         (Gateways, Fog Nodes, Mini-servers)
+         (Filter, aggregate, process data from below)
+              ↑ raw or filtered data
+Layer 1: Device Layer
+         (IoT Sensors, Cameras, Smart Devices)
+         (Generate data continuously)
+    </div>
+
+    <h4>Features of Fog Computing</h4>
+    <ul>
+      <li>Distributed architecture — multiple fog nodes spread geographically</li>
+      <li>Supports mobility — fog nodes can be mobile (vehicles, drones)</li>
+      <li>Low latency for time-sensitive tasks</li>
+      <li>Can process data from heterogeneous devices (different protocols)</li>
+      <li>Reduces cloud workload</li>
+      <li>Backed by Cisco (coined the term)</li>
+    </ul>
+
+    <h3>Comparison: Edge vs Fog vs Cloud</h3>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>Edge Computing</th>
+        <th>Fog Computing</th>
+        <th>Cloud Computing</th>
+      </tr>
+      <tr>
+        <td>Location</td>
+        <td>On or near the device</td>
+        <td>Between device and cloud (gateways)</td>
+        <td>Centralized data centers</td>
+      </tr>
+      <tr>
+        <td>Latency</td>
+        <td>Lowest (milliseconds)</td>
+        <td>Low (milliseconds to seconds)</td>
+        <td>Higher (seconds)</td>
+      </tr>
+      <tr>
+        <td>Compute Power</td>
+        <td>Limited (on-device)</td>
+        <td>Moderate (fog nodes)</td>
+        <td>Unlimited (scalable)</td>
+      </tr>
+      <tr>
+        <td>Storage</td>
+        <td>Very limited</td>
+        <td>Moderate</td>
+        <td>Unlimited</td>
+      </tr>
+      <tr>
+        <td>Internet Required</td>
+        <td>No (can be offline)</td>
+        <td>Partial</td>
+        <td>Yes (always)</td>
+      </tr>
+      <tr>
+        <td>Best Use Case</td>
+        <td>Real-time, mission-critical tasks</td>
+        <td>Smart city, industrial IoT</td>
+        <td>Long-term analytics, training</td>
+      </tr>
+    </table>
+
+  </div>
+</div>
+
+<!-- ======================================================= MODULE 5 -->
+<div class="module-header m5">
+  <h2>Module 5 — Security in Cloud &amp; Cloud Cost Management</h2>
+  <p>Threats · CIA Triad · IAM · Design Principles · Frameworks · Host/Data Security · FinOps</p>
+</div>
+
+<!-- 5.1 -->
+<div class="section" id="s51">
+  <div class="section-header">
+    <span class="num m5">5.1</span>
+    Security Issues in Cloud — Threats, Information Security, Identity Management, Design Principles, Frameworks
+  </div>
+  <div class="section-body">
+
+    <h3>Why is Cloud Security Different?</h3>
+    <p>In traditional computing, all data and systems are within your company's walls. In cloud computing, your data lives on someone else's infrastructure, accessed over the internet, often shared with other users (multi-tenancy). This creates unique security challenges.</p>
+
+    <h3>Major Cloud Security Threats</h3>
+    <div class="grid grid-4">
+      <div class="card">
+        <h5>Data Breaches</h5>
+        <p>Unauthorized access to sensitive cloud-stored data. Often due to misconfigured access controls.</p>
+      </div>
+      <div class="card">
+        <h5>Account Hijacking</h5>
+        <p>Credential theft via phishing or credential stuffing. Attacker gains full control of your cloud account.</p>
+      </div>
+      <div class="card">
+        <h5>Insecure APIs</h5>
+        <p>Poorly designed cloud interfaces expose services. APIs are the primary attack surface in cloud.</p>
+      </div>
+      <div class="card">
+        <h5>DoS / DDoS</h5>
+        <p>Overwhelming cloud resources with traffic to deny legitimate users access.</p>
+      </div>
+      <div class="card">
+        <h5>Insider Threats</h5>
+        <p>Malicious or negligent employees with cloud access can leak or delete critical data.</p>
+      </div>
+      <div class="card">
+        <h5>Misconfiguration</h5>
+        <p>Open S3 buckets, public databases, wrong IAM policies. Most common cause of breaches.</p>
+      </div>
+      <div class="card">
+        <h5>Shared Tech Vulnerabilities</h5>
+        <p>VM escape, side-channel attacks in multi-tenancy environments. One VM affects others.</p>
+      </div>
+      <div class="card">
+        <h5>APTs</h5>
+        <p>Advanced Persistent Threats — sophisticated, long-term targeted attacks by nation-states or organized hackers.</p>
+      </div>
+    </div>
+
+    <h3>Information Security — The CIA Triad</h3>
+    <p>Every security decision in cloud is evaluated against the CIA Triad:</p>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>🔒 C — Confidentiality</h5>
+        <p>Only authorized users can access data.</p>
+        <ul>
+          <li>Encryption at rest (AES-256)</li>
+          <li>Encryption in transit (TLS 1.3)</li>
+          <li>Data masking and tokenization</li>
+          <li>Key Management Services (KMS)</li>
+          <li>Data classification policies</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>✅ I — Integrity</h5>
+        <p>Data is accurate and hasn't been tampered with.</p>
+        <ul>
+          <li>Hashing algorithms (SHA-256)</li>
+          <li>Digital signatures and PKI certificates</li>
+          <li>Audit logs, checksums, versioning</li>
+          <li>Immutable storage (write-once policies)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>⚡ A — Availability</h5>
+        <p>Systems and data are accessible when needed.</p>
+        <ul>
+          <li>Redundancy and failover mechanisms</li>
+          <li>Auto-scaling and load balancing</li>
+          <li>Disaster Recovery (DR) with RTO/RPO targets</li>
+          <li>Business Continuity Plans (BCP)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>RTO vs RPO:</strong> RTO (Recovery Time Objective) = maximum downtime allowed. RPO (Recovery Point Objective) = maximum data loss allowed. E.g., RTO=4hrs, RPO=1hr means you must be back up within 4 hours and can only lose up to 1 hour of data.
+    </div>
+
+    <h3>Identity Management and Access Control</h3>
+    <p><span class="def">Identity Management</span> = verifying WHO you are. <span class="def">Access Control</span> = deciding WHAT you can do.</p>
+
+    <h4>Identity Management Tools</h4>
+    <ul>
+      <li><strong>IAM (Identity and Access Management)</strong> — AWS IAM, Azure AD, GCP IAM</li>
+      <li><strong>Multi-Factor Authentication (MFA)</strong> — requires two or more proofs of identity (password + OTP)</li>
+      <li><strong>Single Sign-On (SSO)</strong> — one login for multiple services, uses SAML / OAuth 2.0 / OIDC protocols</li>
+      <li><strong>Privileged Access Management (PAM)</strong> — extra controls for admin/root-level accounts</li>
+      <li><strong>Directory Services</strong> — LDAP, Active Directory (central database of users)</li>
+    </ul>
+
+    <h4>Access Control Models</h4>
+    <table>
+      <tr><th>Model</th><th>Full Name</th><th>How It Works</th><th>Example</th></tr>
+      <tr><td><strong>DAC</strong></td><td>Discretionary AC</td><td>Resource owner sets permissions</td><td>File owner decides who can read/write</td></tr>
+      <tr><td><strong>MAC</strong></td><td>Mandatory AC</td><td>Policy enforced by system — users can't override</td><td>Military classification (Top Secret, Secret)</td></tr>
+      <tr><td><strong>RBAC</strong></td><td>Role-Based AC</td><td>Permissions tied to roles (Admin, Developer, Viewer)</td><td>AWS IAM roles</td></tr>
+      <tr><td><strong>ABAC</strong></td><td>Attribute-Based AC</td><td>Dynamic rules based on attributes (department, time, location)</td><td>Access only from office IP between 9-5</td></tr>
+      <tr><td><strong>Zero Trust</strong></td><td>—</td><td>Never trust, always verify — every request authenticated</td><td>Google BeyondCorp</td></tr>
+    </table>
+
+    <div class="highlight tip">
+      <strong>IAM in AWS (5 marks answer):</strong> AWS IAM lets you create Users (individual identities), Groups (collection of users), Roles (temporary permissions for services), and Policies (JSON documents defining allowed/denied actions). Key principle: Least Privilege — give only the minimum permissions needed. MFA should be enabled for all root and admin accounts.
+    </div>
+
+    <h3>Cloud Security Design Principles</h3>
+    <div class="grid grid-4">
+      <div class="card">
+        <h5>01 — Defense in Depth</h5>
+        <p>Multiple layered security controls. If one layer fails, others protect you. No single point of failure.</p>
+      </div>
+      <div class="card">
+        <h5>02 — Least Privilege</h5>
+        <p>Grant only the minimum permissions required for the task. Don't give admin access to everyone.</p>
+      </div>
+      <div class="card">
+        <h5>03 — Separation of Duties</h5>
+        <p>No single person has end-to-end control over critical processes. Multiple approvals needed.</p>
+      </div>
+      <div class="card">
+        <h5>04 — Fail Secure</h5>
+        <p>When a system fails, it defaults to a secure state (deny all). Don't accidentally open access on failure.</p>
+      </div>
+      <div class="card">
+        <h5>05 — Zero Trust Architecture</h5>
+        <p>Verify every request regardless of network origin or user. No implicit trust inside the network.</p>
+      </div>
+      <div class="card">
+        <h5>06 — Immutable Infrastructure</h5>
+        <p>Replace components rather than patching running systems. Reduces configuration drift and hidden vulnerabilities.</p>
+      </div>
+      <div class="card">
+        <h5>07 — Shift Left Security</h5>
+        <p>Embed security from the design phase — DevSecOps. Don't add security as an afterthought.</p>
+      </div>
+      <div class="card">
+        <h5>08 — Data Minimization</h5>
+        <p>Collect and retain only data that is strictly necessary. Less data = smaller attack surface.</p>
+      </div>
+    </div>
+
+    <h3>Cloud Security Management Frameworks</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>CSA CCM (Cloud Controls Matrix)</h5>
+        <p>Cloud Security Alliance standard. 197 control objectives across 17 domains. Most comprehensive cloud-specific framework.</p>
+      </div>
+      <div class="card">
+        <h5>NIST SP 800-144</h5>
+        <p>US National Institute of Standards & Technology guidelines on security and privacy in public cloud computing.</p>
+      </div>
+      <div class="card">
+        <h5>ISO/IEC 27017</h5>
+        <p>Cloud-specific information security controls. Extends ISO 27001 (general InfoSec) with cloud-specific guidance.</p>
+      </div>
+      <div class="card">
+        <h5>ISO/IEC 27018</h5>
+        <p>Protection of Personally Identifiable Information (PII) in public cloud. Privacy-focused standard.</p>
+      </div>
+      <div class="card">
+        <h5>SOC 2 Type II</h5>
+        <p>Audits cloud providers on Security, Availability, Processing Integrity, Confidentiality, and Privacy over time.</p>
+      </div>
+      <div class="card">
+        <h5>FedRAMP</h5>
+        <p>US Government cloud security authorization framework. Required for cloud providers serving federal agencies.</p>
+      </div>
+      <div class="card">
+        <h5>CIS Benchmarks</h5>
+        <p>Technical security configuration standards for cloud environments (AWS, Azure, GCP). Specific, actionable checklists.</p>
+      </div>
+      <div class="card">
+        <h5>GDPR / HIPAA / PCI-DSS</h5>
+        <p>Regulatory frameworks: GDPR (EU data privacy), HIPAA (healthcare), PCI-DSS (payment cards). All have cloud implications.</p>
+      </div>
+    </div>
+
+    <div class="highlight warn">
+      <strong>Exam Tip — Frameworks (5 marks):</strong> Mention CSA CCM (cloud-specific, 17 domains), ISO 27017 (cloud controls), NIST SP 800-144 (US guidelines), and SOC 2 (audit). Note that ISO 27001 is the parent standard for general InfoSec, while 27017 extends it for cloud.
+    </div>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions</div>
+      <ul>
+        <li>Explain cloud security design principles [2022 Q5a]</li>
+        <li>Explain cloud security management frameworks [2023 Q3-i]</li>
+        <li>Write role of Identity management and access control in Azure/AWS/GCP [2023 Q1-v]</li>
+        <li>List possible security threats on cloud infrastructure [2023 Q1-vi]</li>
+        <li>Discuss major security threats in cloud, how mitigated [2025 Q5-i]</li>
+        <li>Explain identity management and access control with examples [2025 Q5-ii]</li>
+        <li>Explain cloud security ISO-270001 & ISO-270002 framework [2025 Q5-v]</li>
+        <li>Challenges in multi-tenant cloud security [2025 Q5-vi]</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 5.2 -->
+<div class="section" id="s52">
+  <div class="section-header">
+    <span class="num m5">5.2</span>
+    Host and Data Security in SaaS, PaaS, IaaS
+  </div>
+  <div class="section-body">
+
+    <h3>Shared Responsibility Model</h3>
+    <p>The most important concept in cloud security: Security is a <strong>shared responsibility</strong> between the cloud provider and the customer. <em>How much you manage depends on the service model.</em></p>
+
+    <div class="highlight">
+      Simple rule: <strong>More abstraction (IaaS → PaaS → SaaS) = less security burden on the customer, but also less control.</strong>
+    </div>
+
+    <table>
+      <tr>
+        <th>Layer</th>
+        <th>IaaS (e.g., AWS EC2)</th>
+        <th>PaaS (e.g., App Engine)</th>
+        <th>SaaS (e.g., Gmail, Salesforce)</th>
+      </tr>
+      <tr><td>Physical Infrastructure</td><td colspan="3" style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>Network & Storage</td><td colspan="3" style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>Hypervisor / Host OS</td><td colspan="3" style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>OS / Runtime</td><td style="background:rgba(255,214,0,0.1);text-align:center">Customer</td><td colspan="2" style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>Middleware / Framework</td><td style="background:rgba(255,214,0,0.1);text-align:center">Customer</td><td colspan="2" style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>Application Code</td><td colspan="2" style="background:rgba(255,214,0,0.1);text-align:center">Customer</td><td style="text-align:center;background:rgba(0,229,255,0.1)">Provider</td></tr>
+      <tr><td>Data & Content</td><td colspan="3" style="text-align:center;background:rgba(255,214,0,0.1)">Customer</td></tr>
+      <tr><td>Identity & Access</td><td colspan="3" style="text-align:center;background:rgba(255,214,0,0.1)">Customer</td></tr>
+    </table>
+
+    <h3>Host & Data Security in IaaS (e.g., AWS EC2, Azure VMs)</h3>
+    <p>In IaaS, you get virtual machines. You are responsible for the OS and everything above. The provider secures the physical hardware and hypervisor.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Host Security (Customer's Job)</h5>
+        <ul>
+          <li>VM hardening using CIS Benchmarks & OS patching</li>
+          <li>Host-based Intrusion Detection (HIDS / OSSEC)</li>
+          <li>Hypervisor security and VM isolation guarantees</li>
+          <li>Secure Boot and TPM (Trusted Platform Module)</li>
+          <li>Network segmentation using VPCs, Security Groups, NACLs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Data Security (Customer's Job)</h5>
+        <ul>
+          <li>Encryption at rest — AWS EBS, Azure Disk Encryption, GCP CSEK</li>
+          <li>Encryption in transit — VPN tunnels, TLS 1.3</li>
+          <li>Backup and snapshot policies with geo-redundancy</li>
+          <li>Data Loss Prevention (DLP) tools</li>
+          <li>Key Management Services (KMS) — customer-managed keys (CMK)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Host & Data Security in PaaS (e.g., Google App Engine, Elastic Beanstalk)</h3>
+    <p>In PaaS, the provider manages the OS, runtime, and middleware. You focus on your application code and data. Security responsibilities shift more to the provider.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Application Security (Customer)</h5>
+        <ul>
+          <li>Container security — Docker image scanning, Kubernetes RBAC</li>
+          <li>Runtime protection tools (Falco, Sysdig, Aqua)</li>
+          <li>Dependency and library vulnerability scanning (Snyk, Dependabot)</li>
+          <li>Secure CI/CD pipelines — SAST, DAST, SCA in pipeline</li>
+          <li>Secrets management — HashiCorp Vault, AWS Secrets Manager</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Data Security</h5>
+        <ul>
+          <li>Database encryption — TDE (Transparent Data Encryption)</li>
+          <li>Object storage encryption — S3 SSE, Azure SSE, GCS CMEK</li>
+          <li>Secure API design — OAuth, rate limiting, input validation</li>
+          <li>Database access controls, audit logging, and query monitoring</li>
+          <li>Environment variable and config encryption for app settings</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Host & Data Security in SaaS (e.g., Salesforce, Microsoft 365)</h3>
+    <p>In SaaS, the provider manages almost everything. Your responsibility is mainly data governance, access control, and user management.</p>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>Provider Responsibility</h5>
+        <ul>
+          <li>Multi-tenant isolation & VM separation</li>
+          <li>Automated OS patch management</li>
+          <li>Physical & network infrastructure security</li>
+          <li>Certifications: SOC 2, ISO 27001, CSA STAR</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Customer Responsibility</h5>
+        <ul>
+          <li>User provisioning & deprovisioning (joiner-mover-leaver)</li>
+          <li>Enforce MFA and conditional access</li>
+          <li>Shadow IT discovery & control</li>
+          <li>Third-party app integration review</li>
+          <li>SaaS Security Posture Management (SSPM)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Data Security Tools</h5>
+        <ul>
+          <li><strong>CASB</strong> — Cloud Access Security Broker (visibility & control over SaaS)</li>
+          <li><strong>DLP</strong> — Data Loss Prevention (prevent data exfiltration)</li>
+          <li>Data backup and export / portability policies</li>
+          <li>End-to-end encryption (customer keys)</li>
+          <li>Data residency and sovereignty compliance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <strong>CASB</strong> is a security policy enforcement point between cloud users and cloud service providers. It gives visibility into what SaaS apps employees use and enforces policies (block risky apps, prevent data leakage). Examples: Microsoft Defender for Cloud Apps, Netskope.
+    </div>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions</div>
+      <ul>
+        <li>How host security can be achieved at PaaS and IaaS level? [2022 Q5b]</li>
+        <li>Write short note on host and data security in IaaS [2023 Q4-ii]</li>
+        <li>Compare host security requirements in SaaS, PaaS, IaaS [2025 Q4ii, Q5iii]</li>
+        <li>Compare data security requirements across SaaS, PaaS, IaaS [2025 Q5iii]</li>
+        <li>Explain Identity Access Management with respect to public cloud [2022 Q5c]</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- 5.3 -->
+<div class="section" id="s53">
+  <div class="section-header">
+    <span class="num m5">5.3</span>
+    Cloud Cost Optimization, Budget Management, Reserved vs Spot Instances, FinOps
+  </div>
+  <div class="section-body">
+
+    <h3>Why Cloud Cost Optimization?</h3>
+    <p>According to Gartner, <strong>30-35% of cloud spend is wasted</strong> — idle resources, oversized instances, forgotten storage, data transfer costs. Cost optimization means getting maximum value from every rupee/dollar spent on cloud.</p>
+
+    <h4>Key Cost Drivers in Cloud</h4>
+    <ul>
+      <li><strong>Compute</strong> (EC2, VMs, GCE) — biggest cost center</li>
+      <li><strong>Storage</strong> (S3, EBS, Blob, GCS)</li>
+      <li><strong>Data Transfer</strong> — egress charges (data leaving cloud) add up fast</li>
+      <li><strong>Managed Services</strong> (RDS, EKS, Lambda) — convenient but costly</li>
+      <li><strong>Licensing</strong> — BYOL (Bring Your Own License) vs provider-managed</li>
+    </ul>
+
+    <h4>Optimization Goals</h4>
+    <ul>
+      <li>Eliminate waste — right-sizing, removing zombie/idle resources</li>
+      <li>Maximize value — measure cost per workload/business outcome</li>
+      <li>Improve forecasting & financial accountability</li>
+      <li>Enable engineering autonomy with guardrails (policy limits)</li>
+    </ul>
+
+    <h3>On-Demand vs Reserved vs Spot / Preemptible Instances</h3>
+
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>On-Demand (0% discount)</h5>
+        <ul>
+          <li>Pay per hour/second, no commitment</li>
+          <li>Most expensive — maximum flexibility</li>
+          <li>No interruption risk</li>
+          <li><strong>Best for:</strong> unpredictable, short-term workloads; testing/dev</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Reserved Instances (up to 72% off)</h5>
+        <ul>
+          <li>Commit to 1 or 3 years (upfront or monthly payments)</li>
+          <li>AWS: up to 72% | Azure: 65% | GCP CUDs: 57%</li>
+          <li>Types: Standard (locked) vs Convertible (flexible)</li>
+          <li><strong>Best for:</strong> steady-state, predictable production workloads</li>
+          <li>AWS also offers Savings Plans (more flexible)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>Spot / Preemptible (60-90% off)</h5>
+        <ul>
+          <li>Use spare/unused cloud capacity at deep discount</li>
+          <li><strong>Can be interrupted</strong> — 2-minute warning on AWS/Azure</li>
+          <li>GCP Preemptible: max 24h, 30-second notice</li>
+          <li><strong>Best for:</strong> batch jobs, ML training, CI/CD pipelines (fault-tolerant)</li>
+          <li>AWS Spot Fleet / Azure Spot VMs / GCP Spot VMs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight warn">
+      <strong>Simple Rule:</strong> On-Demand = flexible but expensive. Reserved = commit &amp; save big for predictable work. Spot/Preemptible = huge savings but can be taken away anytime — only use for interruptible workloads.
+    </div>
+
+    <h3>Cloud Budget Management</h3>
+    <p>Budget management is about setting spending limits, tracking costs, and ensuring accountability across teams.</p>
+
+    <h4>Cloud Provider Tools</h4>
+    <ul>
+      <li><strong>AWS:</strong> AWS Budgets + Cost Explorer</li>
+      <li><strong>Azure:</strong> Cost Management + Billing</li>
+      <li><strong>GCP:</strong> Budgets &amp; Alerts + Cost Dashboard</li>
+    </ul>
+
+    <h4>Budget Strategies</h4>
+    <ul>
+      <li><strong>Chargeback &amp; Showback</strong> — Allocate cloud costs to specific teams/projects. Chargeback = team actually pays; Showback = team sees costs but doesn't pay</li>
+      <li><strong>Cost Tagging</strong> — Tag all resources with env (prod/dev/test), team, project, app. Essential for tracking who is spending what</li>
+      <li><strong>Budget Policies</strong> — Enforce spending limits per department or business unit. Auto-stop resources when limit reached</li>
+      <li><strong>Cost Anomaly Detection</strong> — AI-driven alerts for unexpected spending spikes (AWS Cost Anomaly Detection)</li>
+    </ul>
+
+    <h4>Best Practices</h4>
+    <ul>
+      <li>Regular cost reviews — weekly team, monthly executive</li>
+      <li>Cloud cost governance policy and FinOps charter</li>
+      <li>Executive dashboards for spend visibility and forecasting</li>
+      <li>Dedicated FinOps team or Cloud Center of Excellence (CCoE)</li>
+    </ul>
+
+    <h3>FinOps — Financial Operations for Cloud</h3>
+    <p><span class="def">FinOps</span> is a cultural and operational practice that brings together <strong>Finance, Engineering, and Business teams</strong> to maximize the business value of cloud spending. It's not just a tool — it's a mindset and organizational practice.</p>
+
+    <h4>6 Core FinOps Principles (FinOps Foundation)</h4>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>1. Teams Collaborate</h5>
+        <p>Finance + Engineering + Product work together. Breaking silos is essential for cost accountability.</p>
+      </div>
+      <div class="card">
+        <h5>2. Value-Driven Decisions</h5>
+        <p>Focus on business value, not just cost reduction. Spending more on high-value services may be right.</p>
+      </div>
+      <div class="card">
+        <h5>3. Everyone Owns Cost</h5>
+        <p>Decentralized accountability across all teams. Engineers understand and own the cost of what they build.</p>
+      </div>
+      <div class="card">
+        <h5>4. Timely Data Access</h5>
+        <p>Real-time cost visibility for fast decisions. Stale data = poor decisions.</p>
+      </div>
+      <div class="card">
+        <h5>5. Centralized FinOps Team</h5>
+        <p>CCoE / FinOps team drives best practices, standards, and tooling across the organization.</p>
+      </div>
+      <div class="card">
+        <h5>6. Variable Cost Advantage</h5>
+        <p>Leverage cloud's elasticity as a competitive asset — scale up when needed, scale down to save.</p>
+      </div>
+    </div>
+
+    <h4>FinOps Lifecycle: Inform → Optimize → Operate</h4>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>📊 INFORM (Visibility & Allocation)</h5>
+        <p>Understand where money is being spent. Create cost allocation with tags. Build dashboards for stakeholders.</p>
+        <p><em>Tools: AWS Cost Explorer, Azure Cost Management, GCP Billing Console, CloudHealth, Apptio Cloudability</em></p>
+      </div>
+      <div class="card">
+        <h5>⚙️ OPTIMIZE (Reduce Waste & Right-Size)</h5>
+        <p>Identify and eliminate idle resources. Purchase reservations and savings plans. Right-size overprovisioned instances.</p>
+        <p><em>Tools: AWS Compute Optimizer, Azure Advisor, GCP Recommender, Spot.io, ParkMyCloud, Densify</em></p>
+      </div>
+      <div class="card">
+        <h5>🔄 OPERATE (Continuous Improvement)</h5>
+        <p>Establish governance policies and automation. Build culture of cost accountability. Automate enforcement of tagging and policies.</p>
+        <p><em>Tools: Terraform (IaC), AWS Organizations SCPs, Azure Policy, GCP Org Policies, Infracost</em></p>
+      </div>
+    </div>
+
+    <div class="highlight tip">
+      <strong>Key Takeaway for Exam:</strong> FinOps is NOT just about saving money. It's about making sure every dollar spent on cloud generates maximum business value. The lifecycle: first understand your spending (Inform), then eliminate waste (Optimize), then continuously monitor and govern (Operate).
+    </div>
+
+    <div class="pq">
+      <div class="pq-label">📋 Past Paper Questions (likely for 5.3)</div>
+      <ul>
+        <li>Introduction to Cloud cost optimization, Cloud budget management</li>
+        <li>Reserved instances vs spot/preemptible instances</li>
+        <li>FinOps principle</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUICK REVISION -->
+<div style="margin:3rem 0 1rem; border:1px solid var(--accent2); border-radius:8px; padding:1.5rem; background:rgba(255,214,0,0.05);">
+  <h2 style="color:var(--accent2);font-size:1.2rem;margin-bottom:1rem">⚡ Quick Revision — High-Frequency Topics from Past Papers</h2>
+
+  <div class="grid grid-2">
+    <div>
+      <h4>Module 4 — Always Asked</h4>
+      <ul>
+        <li>Draw & explain OpenStack diagram with components</li>
+        <li>Draw & explain Eucalyptus diagram with components</li>
+        <li>Modes of operation of Eucalyptus (4 modes)</li>
+        <li>Google App Engine architecture</li>
+        <li>AWS vs Azure vs GCP comparison</li>
+        <li>IoT + Cloud working model with diagram</li>
+        <li>Benefits/functions of IoT cloud</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Module 5 — Always Asked</h4>
+      <ul>
+        <li>Cloud security threats (list 6-8 with brief explanation)</li>
+        <li>CIA Triad (Confidentiality, Integrity, Availability)</li>
+        <li>IAM — Identity management and access control</li>
+        <li>Cloud security design principles (all 8)</li>
+        <li>Cloud security management frameworks (CSA, NIST, ISO)</li>
+        <li>Shared responsibility model (IaaS vs PaaS vs SaaS table)</li>
+        <li>Host & data security in IaaS/PaaS/SaaS</li>
+        <li>Reserved vs Spot instances</li>
+        <li>FinOps principles and lifecycle</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="print-note">
+  Cloud Computing Module 4 & 5 — Compiled from course slides, past papers (2022–2025), and textbook<br>
+  K.J. Somaiya College of Engineering · Exam Prep 2026
+</div>
+
+</body>
+</html>
