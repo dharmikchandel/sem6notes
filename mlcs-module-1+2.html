@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ML for Cyber Security — Module 1 & 2 Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --accent1: #00e5ff;
+    --accent2: #ffd600;
+    --accent3: #ff6d00;
+    --accent4: #69ff47;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --mod1: #00e5ff;
+    --mod2: #ffd600;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cover {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .cover h1 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.03em; }
+  .cover p { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; margin-top: 0.5rem; }
+  .cover .tags { margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 3rem; }
+  .toc h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; font-family: 'IBM Plex Mono', monospace; }
+  .toc ul { list-style: none; }
+  .toc li { padding: 0.2rem 0; }
+  .toc a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+  .toc a:hover { color: var(--accent1); }
+  .toc .mod-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; margin-right: 0.5rem; }
+  .m1 { color: var(--mod1); }
+  .m2 { color: var(--mod2); }
+
+  .module-header { padding: 1rem 1.5rem; border-radius: 8px; margin: 3rem 0 2rem; border-left: 4px solid; }
+  .module-header.m1 { background: rgba(0,229,255,0.07); border-color: var(--mod1); }
+  .module-header.m2 { background: rgba(255,214,0,0.07); border-color: var(--mod2); }
+  .module-header h2 { font-size: 1.6rem; font-weight: 700; }
+  .module-header p { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  .section { margin: 2rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .section-header { padding: 0.8rem 1.2rem; background: var(--surface); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; }
+  .section-header .num { font-size: 1rem; font-weight: 600; font-family: 'IBM Plex Sans', sans-serif; color: var(--text); }
+  .section-body { padding: 1.2rem 1.5rem; }
+
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+  h3:first-child { margin-top: 0; }
+  h4 { font-size: 0.9rem; font-weight: 600; color: var(--accent1); margin: 1rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'IBM Plex Mono', monospace; }
+
+  p { margin: 0.5rem 0; }
+  ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+  ul li { margin: 0.2rem 0; }
+
+  .grid { display: grid; gap: 1rem; margin: 1rem 0; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .card h5 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; font-family: 'IBM Plex Mono', monospace; }
+  .card p, .card li { font-size: 0.875rem; color: var(--muted); }
+  .card ul { padding-left: 1rem; }
+
+  .highlight { background: rgba(0,229,255,0.06); border-left: 3px solid var(--accent1); padding: 0.8rem 1rem; border-radius: 0 6px 6px 0; margin: 0.8rem 0; font-size: 0.9rem; }
+  .highlight.warn { background: rgba(255,214,0,0.06); border-color: var(--accent2); }
+  .highlight.tip { background: rgba(105,255,71,0.06); border-color: var(--accent4); }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+  th { background: var(--surface); padding: 0.6rem 0.8rem; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--border); }
+  td { padding: 0.6rem 0.8rem; border: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; padding: 0.1rem 0.5rem; border-radius: 3px; margin-left: 0.3rem; }
+  .badge.green { background: rgba(105,255,71,0.15); color: var(--accent4); }
+  .badge.blue { background: rgba(0,229,255,0.15); color: var(--accent1); }
+  .badge.orange { background: rgba(255,109,0,0.15); color: var(--accent3); }
+
+  .def { background: rgba(0,229,255,0.1); border-radius: 3px; padding: 0 0.3rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>MLCS — Module  1 & 2 Exam Notes</h1>
+  <p>SVU Honour Programme in Cyber Security · K.J. Somaiya College of Engineering</p>
+  <div class="tags">
+    <span class="tag">Module 1</span>
+    <span class="tag">Module 2</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ul>
+    <li><span class="mod-label m1">1.1</span><a href="#s11">ML Types: Supervised, Unsupervised, Semi-supervised</a></li>
+    <li><span class="mod-label m1">1.2</span><a href="#s12">Model Families, Loss Functions, Optimization</a></li>
+    <li><span class="mod-label m1">1.3</span><a href="#s13">Proactive & Reactive Security</a></li>
+    <li><span class="mod-label m1">1.4</span><a href="#s14">Real-World ML in Security</a></li>
+    <li><span class="mod-label m2">2.1</span><a href="#s21">Overview of Supervised Learning</a></li>
+    <li><span class="mod-label m2">2.2</span><a href="#s22">Data Collection, Labeling, Feature Extraction</a></li>
+    <li><span class="mod-label m2">2.3</span><a href="#s23">Intrusion Detection Systems (IDS)</a></li>
+    <li><span class="mod-label m2">2.4</span><a href="#s24">DDoS Attack Detection</a></li>
+    <li><span class="mod-label m2">2.5</span><a href="#s25">Spam Filtering — Naive Bayes & Logistic Regression</a></li>
+  </ul>
+</div>
+
+<!-- MODULE 1 -->
+<div class="module-header m1" id="mod1">
+  <h2>Module 1 — Introduction to ML & Cybersecurity</h2>
+  <p>CO1 · 6 Hours</p>
+</div>
+
+<!-- 1.1 -->
+<div class="section" id="s11">
+  <div class="section-header"><span class="num m1">1.1</span> Types of Machine Learning</div>
+  <div class="section-body">
+    <h3>What is Machine Learning?</h3>
+    <p>ML is a branch of AI that develops algorithms allowing computers to <strong>learn from data</strong> and make predictions or decisions without being explicitly programmed.</p>
+
+    <h4>4 Types</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Supervised Learning</h5>
+        <p>Trains on <strong>labeled data</strong>. Each input has a corresponding output. Model learns input→output mapping to predict on new data.</p>
+      </div>
+      <div class="card">
+        <h5>Unsupervised Learning</h5>
+        <p>Learns patterns from <strong>unlabeled data</strong>. No outputs used. Finds structure or clusters in data. No feedback from environment.</p>
+      </div>
+      <div class="card">
+        <h5>Semi-Supervised Learning</h5>
+        <p>Between supervised and unsupervised. Uses <strong>small labeled + large unlabeled</strong> dataset. ML infers labels for unlabeled samples.</p>
+      </div>
+      <div class="card">
+        <h5>Reinforcement Learning</h5>
+        <p>Agent learns by <strong>trial and error</strong>. Receives rewards/penalties from environment. No sample data — learns from actions.</p>
+      </div>
+    </div>
+
+    <h4>ML Pipeline Stages</h4>
+    <p>Data Collection → Data Pre-Processing → Choosing the Right Model → Training the Model → Evaluating the Model → Hyperparameter Tuning → Predictions & Deployment</p>
+  </div>
+</div>
+
+<!-- 1.2 -->
+<div class="section" id="s12">
+  <div class="section-header"><span class="num m1">1.2</span> Model Families, Loss Functions, Optimization</div>
+  <div class="section-body">
+
+    <h3>Model Families</h3>
+    <p>Every ML algorithm is defined by three components: <strong>Model Family · Loss Function · Optimization Procedure</strong>.</p>
+    <p>A <span class="def">model family</span> defines the set of possible models described by a finite set of parameters. Learning = selecting parameter values that best fit training data.</p>
+    <p>The simplest model is a <strong>linear decision boundary</strong> (hyperplane): <code>H: θ·x − β = 0</code>. To assign probabilities, the <strong>sigmoid (logistic) function</strong> maps real-valued scores to [0,1].</p>
+
+    <h3>Loss Functions</h3>
+    <p>A <span class="def">loss function</span> quantitatively measures error between predicted and actual outputs. The optimal model minimizes loss over training data.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Regression — Sum of Squared Errors</h5>
+        <p>Loss = Σ(yᵢ − ŷᵢ)². Minimized using gradient descent iteratively.</p>
+      </div>
+      <div class="card">
+        <h5>Classification — Negative Log Likelihood</h5>
+        <p>For logistic regression. Penalizes incorrect and overconfident predictions more strongly. Differentiable → suitable for gradient optimization.</p>
+      </div>
+    </div>
+
+    <h3>Optimization</h3>
+    <p>Goal: find parameters θ that minimize the loss function.</p>
+
+    <table>
+      <tr><th>Type</th><th>Algorithm</th><th>Key Points</th></tr>
+      <tr><td>First-order</td><td>Gradient Descent</td><td>Uses 1st derivative; iteratively moves params in direction that reduces loss</td></tr>
+      <tr><td>First-order</td><td>SGD</td><td>Stochastic — better at escaping local minima; high variance oscillations; use decreasing learning rate</td></tr>
+      <tr><td>First-order (adaptive)</td><td>Adam, AdaGrad, AdaDelta</td><td>Separate adaptive learning rates per parameter; solve SGD problems</td></tr>
+      <tr><td>Second-order</td><td>Newton-based</td><td>Uses 2nd derivative; no slow convergence paths; good at saddle points; slower to compute</td></tr>
+    </table>
+
+    <div class="highlight warn">
+      No single optimizer is universally optimal. Choice depends on: dataset size · nature of loss function · classification vs regression · speed/resource requirements.
+    </div>
+  </div>
+</div>
+
+<!-- 1.3 -->
+<div class="section" id="s13">
+  <div class="section-header"><span class="num m1">1.3</span> Proactive & Reactive Security</div>
+  <div class="section-body">
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Proactive Security</h5>
+        <p>Designed to maintain overall security even if individual components are compromised. Prevents threats <em>before</em> they occur.</p>
+        <p><strong>PPDM</strong> (Privacy-Preserving Data Mining) — protects private data during mining. Methods: data distribution, modification, rule hiding, privacy-preservation.</p>
+      </div>
+      <div class="card">
+        <h5>Reactive Security</h5>
+        <p>Responds to threats <em>after</em> an attack. Focuses on identifying known attack patterns and taking corrective actions. Primary objective: <strong>damage control and recovery</strong>.</p>
+        <p>Key component: <strong>IDS</strong> — monitors activities, analyzes events, generates reactions to intrusions.</p>
+      </div>
+    </div>
+
+    <h3>IDS Detection Modules</h3>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>1. Misuse / Signature Detection</h5>
+        <p>Triggers alarm when a known attack pattern is detected. Fast for known attacks. <strong>Cannot detect novel/zero-day attacks.</strong></p>
+      </div>
+      <div class="card">
+        <h5>2. Anomaly Detection</h5>
+        <p>Detects deviations from a learned "normal" profile. Can detect unknown attacks. <strong>High false alarm rate.</strong></p>
+      </div>
+      <div class="card">
+        <h5>3. Hybrid Detection</h5>
+        <p>Combines misuse + anomaly to compensate for individual weaknesses. More effective overall.</p>
+      </div>
+      <div class="card">
+        <h5>4. Scan Detection</h5>
+        <p>Generates alerts when attackers scan services before launching attacks. Identifies precursors of attacks.</p>
+      </div>
+      <div class="card">
+        <h5>5. Profiling Modules</h5>
+        <p>Groups similar network connections using clustering algorithms to find dominant (normal) behaviors.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 1.4 -->
+<div class="section" id="s14">
+  <div class="section-header"><span class="num m1">1.4</span> Real-World Uses of ML in Security</div>
+  <div class="section-body">
+
+    <h3>Two Broad ML Use Cases in Security</h3>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Pattern Recognition</h5>
+        <p>Discovers explicit/latent characteristics in data. Feature sets teach an algorithm to recognize forms of data with same characteristics.</p>
+        <p><em>Examples:</em> Spam filtering, Malware detection, Botnet detection</p>
+      </div>
+      <div class="card">
+        <h5>Anomaly Detection</h5>
+        <p>Establishes a notion of normality (95%+ of data). Any deviation is flagged as anomalous. Infinite anomalous patterns possible — even from hypothetical data.</p>
+        <p><em>Examples:</em> Network outlier detection, Malicious URL detection</p>
+      </div>
+    </div>
+
+    <h4>Key Security Applications</h4>
+    <table>
+      <tr><th>Application</th><th>ML Role</th></tr>
+      <tr><td><strong>Intrusion Detection (IDS)</strong></td><td>Builds classifier distinguishing normal vs malicious connections. Learns from labeled network data.</td></tr>
+      <tr><td><strong>Access Control</strong></td><td>Unsupervised learning infers normal access patterns; anomaly detection triggers on deviations.</td></tr>
+      <tr><td><strong>Spam Detection</strong></td><td>Pattern recognition on spam characteristics (keywords, links, sender). Also frameable as anomaly detection.</td></tr>
+      <tr><td><strong>Malware/Botnet Detection</strong></td><td>Pattern recognition; handles polymorphic malware. Static + dynamic feature analysis.</td></tr>
+      <tr><td><strong>Fuzzing</strong></td><td>ML learns patterns of previously found vulnerabilities to guide fuzzers to vulnerable code paths.</td></tr>
+      <tr><td><strong>Network Outlier Detection</strong></td><td>Most network traffic follows strict protocols — deviations caught by outlier algorithms.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- MODULE 2 -->
+<div class="module-header m2" id="mod2">
+  <h2>Module 2 — Supervised Learning for Cybersecurity</h2>
+  <p>CO2 · 12 Hours</p>
+</div>
+
+<!-- 2.1 -->
+<div class="section" id="s21">
+  <div class="section-header"><span class="num m2">2.1</span> Overview of Supervised Learning</div>
+  <div class="section-body">
+
+    <h3>How It Works</h3>
+    <p>Labeled dataset → model identifies patterns between input features and outputs → minimizes errors using a loss function → generalizes to predict on new data.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Classification</h5>
+        <p>Output is a <strong>category</strong>. E.g., "spam" or "not spam". Predicts discrete labels.</p>
+      </div>
+      <div class="card">
+        <h5>Regression</h5>
+        <p>Output is a <strong>continuous value</strong>. E.g., house price prediction. Predicts numerical quantities.</p>
+      </div>
+    </div>
+
+    <h4>Importance in Cybersecurity</h4>
+    <ul>
+      <li><strong>Malware Detection:</strong> Classifies malware from file attributes/behavior. Random Forests + Gradient Boosting improve accuracy.</li>
+      <li><strong>Real-Time Threat Detection:</strong> Analyzes network traffic and system calls to predict malicious activity.</li>
+      <li><strong>Continuous Improvement:</strong> Models retrain with updated data to adapt to evolving threats.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 2.2 -->
+<div class="section" id="s22">
+  <div class="section-header"><span class="num m2">2.2</span> Data Collection, Preprocessing, Labeling & Feature Extraction</div>
+  <div class="section-body">
+
+    <h3>Sources of Cybersecurity Data</h3>
+    <div class="grid grid-3">
+      <div class="card"><h5>Network Traffic Logs</h5><p>IP addresses, protocols, ports, packet sizes, timestamps. Supports anomaly detection.</p></div>
+      <div class="card"><h5>System Logs</h5><p>OS/application events: logins, file access, config changes, failed logins, suspicious activity.</p></div>
+      <div class="card"><h5>Endpoint Data</h5><p>Laptops, phones, IoT devices. Detects compromised devices and malware.</p></div>
+      <div class="card"><h5>Threat Intelligence Feeds</h5><p>Known vulnerabilities, malicious IPs and domains. Neutralizes known actors.</p></div>
+      <div class="card"><h5>User Behaviour Data</h5><p>Logins, file access, application usage. Reveals insider threats and compromised accounts.</p></div>
+    </div>
+
+    <h3>Data Preprocessing Pipeline</h3>
+    <p>Collection → Cleaning (remove irrelevant data, handle missing values, normalize) → Feature Extraction → Model Training → Evaluation (accuracy, precision, recall, F1)</p>
+
+    <h3>Data Labeling Techniques</h3>
+    <p>Assigning meaningful tags/categories to raw data so ML models can distinguish normal vs malicious behavior.</p>
+
+    <table>
+      <tr><th>Technique</th><th>How</th><th>Pros / Cons</th></tr>
+      <tr><td>Manual (Expert-Based)</td><td>Cybersecurity experts inspect and label data</td><td>✅ High accuracy — ❌ Slow, expensive, not scalable</td></tr>
+      <tr><td>Signature-Based</td><td>Predefined attack signatures auto-label data</td><td>✅ Efficient for known attacks — ❌ Misses zero-day</td></tr>
+      <tr><td>Rule-Based</td><td>Thresholds/heuristics (e.g., repeated failed logins = brute force)</td><td>✅ Simple — ❌ False positives if rules outdated</td></tr>
+      <tr><td>Log & Alert-Based</td><td>IDS/IPS/SIEM alerts directly used as labels</td><td>✅ Large-scale automated — ❌ Inherits tool biases</td></tr>
+      <tr><td>Honeypot-Based</td><td>Any interaction with decoy system = malicious label</td><td>✅ High-confidence malicious labels — ❌ No normal traffic</td></tr>
+      <tr><td>Semi-Supervised</td><td>Small labeled + large unlabeled; model infers rest</td><td>✅ Reduces manual effort — ❌ Errors propagate</td></tr>
+      <tr><td>Active Learning</td><td>Model requests expert to label only uncertain samples</td><td>✅ Minimizes cost — ❌ Continuous expert involvement</td></tr>
+    </table>
+
+    <h3>Feature Extraction</h3>
+    <p>Converts raw data into relevant structured features for ML models.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>From Network Traffic</h5>
+        <ul>
+          <li>Packet-based: size, count, protocol</li>
+          <li>Flow-based: duration, bytes sent/received</li>
+          <li>Time-based: connection rate, inter-arrival time</li>
+          <li>Statistical: mean, variance, entropy</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>From Malware Files</h5>
+        <ul>
+          <li>Static: file size, header info, opcode sequences, API calls</li>
+          <li>Dynamic: system calls, network behavior, file modifications</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>From System Logs</h5>
+        <ul>
+          <li>Login attempt count, system call frequency</li>
+          <li>Access time patterns, error/warning counts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>From Text (Spam/Phishing)</h5>
+        <ul>
+          <li><strong>BoW</strong>: word frequency vector</li>
+          <li><strong>TF-IDF</strong>: weights rare words higher</li>
+          <li><strong>N-grams</strong>: opcode/word sequences</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Feature Selection</h3>
+    <p>Choosing most relevant features. Reduces dimensionality, improves accuracy, reduces overfitting.</p>
+
+    <table>
+      <tr><th>Method</th><th>How</th><th>Examples</th></tr>
+      <tr><td>Filter</td><td>Statistical properties; no ML model needed. Fast and scalable.</td><td>Information Gain, Chi-square, Correlation, Mutual Information</td></tr>
+      <tr><td>Wrapper</td><td>Uses ML model to evaluate feature subsets. High accuracy but expensive.</td><td>Forward Selection, Backward Elimination, RFE</td></tr>
+      <tr><td>Embedded</td><td>Feature selection during model training. Balances efficiency + accuracy.</td><td>Decision Trees, Random Forest importance, LASSO (L1)</td></tr>
+    </table>
+
+    <div class="highlight warn">
+      <strong>Overfitting</strong>: model too complex, memorizes noise — poor on test data. <strong>Underfitting</strong>: model too simple, high bias — poor on both train and test.
+    </div>
+  </div>
+</div>
+
+<!-- 2.3 -->
+<div class="section" id="s23">
+  <div class="section-header"><span class="num m2">2.3</span> Intrusion Detection Systems (IDS)</div>
+  <div class="section-body">
+
+    <h3>What is IDS?</h3>
+    <p>Software that monitors network/system activities for malicious activity or policy violations. Builds a classifier distinguishing <em>normal</em> vs <em>attack</em> connections. Alerts logged via SIEM or sent to admin.</p>
+
+    <h3>Types of IDS</h3>
+    <table>
+      <tr><th>Type</th><th>Description</th></tr>
+      <tr><td>NIDS (Network)</td><td>Monitors entire subnet traffic; matches against known attack signatures</td></tr>
+      <tr><td>HIDS (Host)</td><td>Runs on individual device; monitors incoming/outgoing packets; snapshots system files for comparison</td></tr>
+      <tr><td>Signature-Based</td><td>Compares packets to attack signature database; requires regular updates; can't detect unknown attacks</td></tr>
+      <tr><td>Hybrid</td><td>Combines host agent + network info; most effective</td></tr>
+      <tr><td>PIDS (Protocol-Based)</td><td>Resides at front of server; monitors HTTPS/HTTP protocol stream</td></tr>
+      <tr><td>APIDS (App Protocol-Based)</td><td>Resides within server group; monitors application-specific protocol communication</td></tr>
+    </table>
+
+    <h3>Common Intrusion Methods</h3>
+    <ul>
+      <li><strong>Address Spoofing</strong>: fake source IP using proxy servers</li>
+      <li><strong>Fragmentation</strong>: sending data in small pieces to slip past detection</li>
+      <li><strong>Pattern Evasion</strong>: changing attack methods to avoid signature matching</li>
+      <li><strong>Coordinated Attack</strong>: multiple attackers/ports to confuse IDS</li>
+    </ul>
+
+    <h3>Supervised Learning Techniques for IDS</h3>
+
+    <h4>Decision Trees</h4>
+    <p>Binary tree structure; splits dataset top-down using conditions. Analyzes packet size, protocol type, connection duration, traffic rate to classify normal vs intrusive activity.</p>
+    <ul>
+      <li><strong>Split metrics:</strong> Gini Impurity (lower = purer nodes), Information Gain (higher = better split), Variance Reduction</li>
+      <li><strong>Stop splitting when:</strong> all leaves pure OR max depth reached OR child node too small</li>
+      <li>✅ Easy to interpret, fast, supports numerical + categorical features</li>
+      <li>❌ Prone to overfitting; use <strong>pruning</strong> to reduce complexity. Small data changes → large tree changes.</li>
+    </ul>
+
+    <h4>Random Forests</h4>
+    <p>Ensemble of multiple decision trees. Combines outputs to improve accuracy and reduce overfitting. Handles noisy/imbalanced data well. Provides feature importance ranking.</p>
+
+    <h4>Support Vector Machines (SVM)</h4>
+    <p>Linear classifier producing a <strong>maximum-margin hyperplane</strong> separating two classes. Uses <strong>hinge loss</strong> (penalizes points on wrong side). Kernel trick enables non-linear boundaries.</p>
+    <ul>
+      <li>✅ Handles high-dimensional data; effective for malware detection and IDS</li>
+    </ul>
+
+    <h4>Neural Networks</h4>
+    <p>Layers of connected nodes mimicking brain neurons. CNNs/RNNs/MLPs analyze network traffic for anomalies. Can achieve >99% accuracy.</p>
+    <ul>
+      <li>✅ Automatic feature extraction, real-time monitoring, adaptable to new threats, reduces false positives</li>
+    </ul>
+
+    <div class="highlight tip">
+      <strong>Variance Reduction Techniques:</strong> Cross-Validation · Regularization (L1/L2) · Pruning · Feature Selection
+    </div>
+  </div>
+</div>
+
+<!-- 2.4 -->
+<div class="section" id="s24">
+  <div class="section-header"><span class="num m2">2.4</span> DDoS Attack Detection</div>
+  <div class="section-body">
+
+    <h3>What is DDoS?</h3>
+    <p>Distributed Denial-of-Service: floods target with traffic from multiple compromised devices (<strong>botnets/zombies</strong>). Results in degraded performance or service outage. Attacker sends remote instructions to each bot.</p>
+
+    <h3>Traffic Analysis — Signs of DDoS</h3>
+    <ul>
+      <li>Suspicious traffic volume from a single IP or IP range</li>
+      <li>Flood from users sharing same device type/geolocation/browser</li>
+      <li>Unexplained surge in requests to single endpoint</li>
+      <li>Unnatural traffic patterns (e.g., spikes every 10 minutes)</li>
+    </ul>
+
+    <h3>Key Features Extracted for DDoS Detection</h3>
+    <table>
+      <tr><th>Feature</th><th>Significance</th></tr>
+      <tr><td>Packet Rate</td><td>Abnormally high rate = flooding attack indicator</td></tr>
+      <tr><td>Request Rate</td><td>Sharp increase = application-layer (HTTP flood) attack</td></tr>
+      <tr><td>Source IP Count</td><td>High unique IPs = distributed botnet attack</td></tr>
+      <tr><td>Packet Size</td><td>Uniform sizes = protocol abuse/flooding pattern</td></tr>
+      <tr><td>Flow Duration</td><td>Very short flows = repeated connections; very long = resource exhaustion</td></tr>
+      <tr><td>Protocol Type</td><td>Dominance of one protocol (UDP/ICMP floods) = protocol-specific attack</td></tr>
+    </table>
+
+    <h3>Supervised Learning Approach</h3>
+    <p>Label network traffic as <em>normal</em> or <em>DDoS attack</em> → train model → classify incoming traffic in real time → activate mitigation when attack detected.</p>
+    <p><strong>Algorithms used:</strong> Decision Trees, Naive Bayes, Logistic Regression, SVM, Random Forests</p>
+    <p><strong>Evaluation:</strong> Accuracy, Precision, Recall, False Positive Rate. <em>High recall is critical</em> — must not misclassify attack as normal.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>✅ Advantages</h5>
+        <ul><li>High detection accuracy</li><li>Learns complex non-linear patterns</li><li>Automated and adaptive</li><li>Suitable for real-time monitoring</li></ul>
+      </div>
+      <div class="card">
+        <h5>❌ Limitations</h5>
+        <ul><li>Requires large labeled datasets</li><li>Depends on data quality and feature selection</li><li>Limited against previously unseen attack patterns</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2.5 -->
+<div class="section" id="s25">
+  <div class="section-header"><span class="num m2">2.5</span> Spam Filtering — Naive Bayes & Logistic Regression</div>
+  <div class="section-body">
+
+    <h3>Characteristics of Spam Emails</h3>
+    <ul>
+      <li>Promotional/misleading content with exaggerated offers and urgency</li>
+      <li>Frequent spam keywords: <em>free, win, urgent, click here</em></li>
+      <li>Suspicious links, shortened URLs, unexpected attachments</li>
+      <li>Spoofed or unknown sender info; mismatch between name and address</li>
+      <li>Poor grammar, no personalization, generic greetings ("Dear User")</li>
+      <li>HTML tricks: hidden text, large fonts, bright colors</li>
+      <li>High sending frequency from automated systems</li>
+    </ul>
+
+    <h3>NLP Techniques for Email Processing</h3>
+    <p>Text Mining + NLP pipeline: Information Retrieval → Text Cleaning (lowercase, remove punctuation) → Tokenization → Stop-Word Removal → Stemming/Lemmatization → Feature Representation</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Bag of Words (BoW)</h5>
+        <p>Represents word frequency. Simple but ignores word order and context.</p>
+      </div>
+      <div class="card">
+        <h5>TF-IDF</h5>
+        <p>Term Frequency × Inverse Document Frequency. Weights rare/important words higher; down-weights common words.</p>
+      </div>
+      <div class="card">
+        <h5>N-grams</h5>
+        <p>Sequences of N words/characters. Captures local context and word patterns.</p>
+      </div>
+      <div class="card">
+        <h5>Sentiment Analysis</h5>
+        <p>Identifies emotional tone (positive/negative/neutral). Used as additional feature to improve classification accuracy.</p>
+      </div>
+    </div>
+
+    <h3>Naive Bayes Classifier</h3>
+    <p><span class="def">Naive Bayes</span> predicts category using probability. "Naive" = assumes all features are <strong>independent</strong> (never actually true, but works well in practice for spam).</p>
+    <p><strong>Core idea:</strong> Given features X = {x₁,…,xₙ}, compute P(Y=C | X) using Bayes' Theorem. Choose class C with highest posterior probability.</p>
+    <ul>
+      <li><strong>Prior P(C):</strong> proportion of class C in training data</li>
+      <li><strong>Likelihood P(xᵢ|C):</strong> probability of word given class</li>
+      <li><strong>Laplace Smoothing:</strong> adds "phantom" samples to handle unseen words (avoids zero probabilities)</li>
+      <li><strong>Log-Probability:</strong> use log to avoid numerical underflow from multiplying tiny probabilities</li>
+    </ul>
+    <div class="highlight tip">In practice, compute the ratio of probability estimates for class C1 vs C2. Score > 1 → C1 more likely. Score < 1 → C2 more likely.</div>
+
+    <h3>Logistic Regression</h3>
+    <p>Takes numerical feature vectors, predicts <strong>log odds</strong> of each class. Sigmoid function maps output to probability [0,1].</p>
+    <p><strong>Decision boundary is linear</strong> in log-odds space. Threshold (e.g., 0.5): above → spam, below → not spam.</p>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>✅ Advantages</h5>
+        <ul>
+          <li>Trains efficiently, scales to millions of features</li>
+          <li>Explainable — each feature's contribution computable</li>
+          <li>Fast scoring (dot product)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h5>❌ Limitations</h5>
+        <ul>
+          <li>Assumes linearity between features and log odds</li>
+          <li>Features must be independent</li>
+          <li>Requires larger sample size than some other algorithms</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Implementation Pipeline (Logistic Regression for Spam)</h4>
+    <p>Load CSV data → Train/Test split (e.g., 80/20) → TF-IDF vectorization → Fit LogisticRegression model → Predict on test set → Evaluate with accuracy_score</p>
+
+    <div class="highlight">
+      <strong>Evaluation Metrics:</strong> Accuracy = correct predictions / total. Precision = true spam / classified spam. Recall = true spam / all actual spam. F1 = harmonic mean of precision and recall.
+    </div>
+  </div>
+</div>
+
+<!-- Quick Revision -->
+<div style="margin:3rem 0 1rem; border:1px solid var(--accent2); border-radius:8px; padding:1.5rem; background:rgba(255,214,0,0.05);">
+  <h2 style="color:var(--accent2);font-size:1.2rem;margin-bottom:1rem">⚡ Quick Revision — Key Definitions</h2>
+  <div class="grid grid-2">
+    <div>
+      <h4>Module 1</h4>
+      <ul>
+        <li>ML = algorithms that learn from data without explicit programming</li>
+        <li>Model Family = set of possible models with finite parameters</li>
+        <li>Loss Function = quantifies error between predicted and actual</li>
+        <li>Gradient Descent = iteratively updates params to reduce loss</li>
+        <li>Proactive = prevent; Reactive = respond after attack</li>
+        <li>IDS detection types: Misuse · Anomaly · Hybrid · Scan · Profiling</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Module 2</h4>
+      <ul>
+        <li>Supervised = labeled data; Classification vs Regression</li>
+        <li>Labeling techniques: Manual · Signature · Rule · Log · Honeypot · Semi-supervised · Active Learning</li>
+        <li>Feature selection: Filter · Wrapper · Embedded (LASSO)</li>
+        <li>Decision Tree splits: Gini Impurity / Information Gain / Variance Reduction</li>
+        <li>Naive Bayes = uses Bayes' theorem with feature independence assumption</li>
+        <li>DDoS = botnet floods target; features: packet rate, source IP count, flow duration</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;color:var(--muted);font-size:0.8rem;padding:2rem 0;border-top:1px solid var(--border);margin-top:2rem;font-family:'IBM Plex Mono',monospace;">
+  MLCS Module 1 & 2 — Compiled from course materials · K.J. Somaiya College of Engineering · 2026
+</div>
+
+</body>
+</html>

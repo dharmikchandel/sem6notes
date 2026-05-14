@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLCS — Module 3 Exam Notes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --accent1: #00e5ff;
+    --accent2: #ffd600;
+    --accent3: #ff6d00;
+    --accent4: #69ff47;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --mod3: #a78bfa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 2rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .cover {
+    text-align: center;
+    padding: 3rem 0 2rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .cover h1 { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text); }
+  .cover p { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; margin-top: 0.5rem; }
+  .cover .tags { margin-top: 1rem; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+  .tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 4px; border: 1px solid var(--border); color: var(--muted); }
+
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 3rem; }
+  .toc h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; font-family: 'IBM Plex Mono', monospace; }
+  .toc ul { list-style: none; }
+  .toc li { padding: 0.2rem 0; }
+  .toc a { color: var(--text); text-decoration: none; font-size: 0.9rem; }
+  .toc a:hover { color: var(--mod3); }
+  .toc .mod-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; margin-right: 0.5rem; color: var(--mod3); }
+
+  .module-header { padding: 1rem 1.5rem; border-radius: 8px; margin: 3rem 0 2rem; border-left: 4px solid var(--mod3); background: rgba(167,139,250,0.07); }
+  .module-header h2 { font-size: 1.6rem; font-weight: 700; }
+  .module-header p { color: var(--muted); font-size: 0.9rem; margin-top: 0.3rem; }
+
+  .section { margin: 2rem 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .section-header { padding: 0.8rem 1.2rem; background: var(--surface); font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.5rem; }
+  .section-header .num { font-size: 1rem; font-weight: 600; font-family: 'IBM Plex Sans', sans-serif; color: var(--mod3); }
+  .section-body { padding: 1.2rem 1.5rem; }
+
+  h3 { font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0 0.6rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--border); }
+  h3:first-child { margin-top: 0; }
+
+  h4 { font-size: 0.95rem; font-weight: 600; color: var(--accent1); margin: 1rem 0 0.4rem; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'IBM Plex Mono', monospace; }
+
+  p { margin: 0.5rem 0; }
+  ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+  ul li { margin: 0.2rem 0; }
+
+  .grid { display: grid; gap: 1rem; margin: 1rem 0; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+  .card h5 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; font-family: 'IBM Plex Mono', monospace; }
+  .card p, .card li { font-size: 0.875rem; color: var(--muted); }
+  .card ul { padding-left: 1rem; }
+
+  .highlight { background: rgba(0,229,255,0.06); border-left: 3px solid var(--accent1); padding: 0.8rem 1rem; border-radius: 0 6px 6px 0; margin: 0.8rem 0; font-size: 0.9rem; }
+  .highlight.warn { background: rgba(255,214,0,0.06); border-color: var(--accent2); }
+  .highlight.tip { background: rgba(105,255,71,0.06); border-color: var(--accent4); }
+  .highlight.purple { background: rgba(167,139,250,0.06); border-color: var(--mod3); }
+
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.875rem; }
+  th { background: var(--surface); padding: 0.6rem 0.8rem; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border: 1px solid var(--border); }
+  td { padding: 0.6rem 0.8rem; border: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  .def { font-weight: 600; color: var(--accent1); }
+
+  .diagram-box { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; line-height: 1.6; white-space: pre; overflow-x: auto; color: var(--accent1); margin: 1rem 0; }
+
+  .steps { counter-reset: step; }
+  .step { display: flex; gap: 0.8rem; margin: 0.6rem 0; align-items: flex-start; }
+  .step-num { counter-increment: step; min-width: 1.6rem; height: 1.6rem; background: var(--mod3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: #0d1117; font-family: 'IBM Plex Mono', monospace; flex-shrink: 0; margin-top: 0.2rem; }
+  .step-content { font-size: 0.9rem; }
+
+  .print-note { text-align: center; color: var(--muted); font-size: 0.8rem; font-family: 'IBM Plex Mono', monospace; padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }
+
+  @media(max-width:700px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    body { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>MLCS — Module 3 Exam Notes</h1>
+  <p>K.J. Somaiya College of Engineering · Honour Programme in Cyber Security</p>
+  <div class="tags">
+    <span class="tag">3.1 — Unsupervised Learning Basics</span>
+    <span class="tag">3.2 — Anomaly Detection</span>
+    <span class="tag">3.3 — Clustering for Threat Detection</span>
+    <span class="tag">3.4 — Network Traffic Analysis</span>
+    <span class="tag">3.5 — UEBA</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h2>Contents</h2>
+  <ul>
+    <li><span class="mod-label">3.1</span><a href="#s31">Introduction to Unsupervised Learning — K-Means, DBSCAN, Apriori, FP-Growth</a></li>
+    <li><span class="mod-label">3.2</span><a href="#s32">Anomaly Detection — Isolation Forest, Autoencoders</a></li>
+    <li><span class="mod-label">3.3</span><a href="#s33">Clustering Methods for Cybersecurity Threat Detection</a></li>
+    <li><span class="mod-label">3.4</span><a href="#s34">Network Traffic Analysis</a></li>
+    <li><span class="mod-label">3.5</span><a href="#s35">Monitoring User and Entity Behavior (UEBA)</a></li>
+  </ul>
+</div>
+
+<div class="module-header">
+  <h2>Module 3 — Unsupervised Learning in Cybersecurity</h2>
+  <p>K-Means · DBSCAN · Apriori · FP-Growth · Isolation Forest · Autoencoders · NTA · UEBA</p>
+</div>
+
+<!-- ===================== 3.1 ===================== -->
+<div class="section" id="s31">
+  <div class="section-header">
+    <span class="num">3.1</span>
+    Introduction to Unsupervised Learning — K-Means, DBSCAN, Apriori, FP-Growth
+  </div>
+  <div class="section-body">
+
+    <h3>What is Unsupervised Learning?</h3>
+    <p><span class="def">Unsupervised Learning</span> is a type of machine learning where the model works <strong>without labelled data</strong>. It learns patterns on its own by grouping similar data points or finding hidden structures without any human intervention.</p>
+    <ul>
+      <li>Used for tasks like clustering, dimensionality reduction, and association rule learning</li>
+      <li>Helps identify hidden patterns in data</li>
+      <li>Useful for grouping, compression, and anomaly detection</li>
+    </ul>
+
+    <h4>How Unsupervised Learning Works</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Collect Unlabeled Data</strong> — gather a dataset without predefined labels or categories</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Select an Algorithm</strong> — choose clustering (K-Means), association rule learning (Apriori), or dimensionality reduction (PCA) based on the goal</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Train on Raw Data</strong> — feed the unlabeled dataset; the algorithm finds similarities, relationships, or hidden structures</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Group or Transform Data</strong> — algorithm organizes data into clusters, rules, or lower-dimensional forms without human input</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Interpret and Use Results</strong> — analyze discovered groups or rules for visualization, anomaly detection, or further modelling</div></div>
+    </div>
+
+    <h4>Three Types of Unsupervised Algorithms</h4>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>1. Clustering</h5>
+        <p>Groups unlabeled data into clusters based on similarity. Used for customer segmentation, anomaly detection, data organization.</p>
+      </div>
+      <div class="card">
+        <h5>2. Association Rule Learning</h5>
+        <p>Discovers "if-then" relationships between variables in large datasets. Used in market basket analysis, recommendation systems.</p>
+      </div>
+      <div class="card">
+        <h5>3. Dimensionality Reduction</h5>
+        <p>Decreases the number of features while retaining information. Reduces noise and computational cost. Algorithms: PCA, LDA, NMF, LLE, Isomap.</p>
+      </div>
+    </div>
+
+    <h3>K-Means Clustering</h3>
+    <p><span class="def">K-Means</span> groups similar data points into clusters without needing labeled data. It computes centroids and iterates until the optimal centroid is found. It assumes the number of clusters K is already known.</p>
+    <p>Data points are assigned to clusters such that the <strong>sum of squared distances between points and their centroid is minimized</strong>. Less variation within clusters means more similar data points.</p>
+
+    <h4>Steps of K-Means Algorithm</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content">Specify the number of clusters K</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Randomly select K data points and assign each to a cluster</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Compute the cluster centroids</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Iterate: compute sum of squared distances → reassign each point to the nearest centroid → recompute centroids</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Stop when cluster assignments no longer change</div></div>
+    </div>
+
+    <h4>Applications of K-Means</h4>
+    <div class="grid grid-2">
+      <div class="card"><h5>Data Segmentation</h5><p>Group customers based on purchasing patterns or website interaction.</p></div>
+      <div class="card"><h5>Image Compression</h5><p>Group similar pixels into clusters to reduce image complexity and storage.</p></div>
+      <div class="card"><h5>Anomaly Detection</h5><p>Identify data points that do not belong to any of the clusters.</p></div>
+      <div class="card"><h5>Document Clustering</h5><p>Group similar documents in NLP for recommendation systems or news categorization.</p></div>
+    </div>
+
+    <h3>DBSCAN</h3>
+    <p><span class="def">DBSCAN</span> (Density-Based Spatial Clustering of Applications with Noise) groups data points that are closely packed and marks outliers as noise based on their density in the feature space. It identifies clusters as dense regions separated by areas of lower density.</p>
+
+    <h4>Key Parameters</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Eps (ε — Epsilon)</h5>
+        <p>The radius of the neighborhood around a data point. Points within ε distance are considered neighbors. If ε is too small → most points become noise. If ε is too large → clusters may merge.</p>
+      </div>
+      <div class="card">
+        <h5>MinPts</h5>
+        <p>Minimum number of points required within the ε radius to form a dense region. General rule: MinPts ≥ D + 1, where D is the number of dimensions.</p>
+      </div>
+    </div>
+
+    <h4>Working of DBSCAN</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content">Randomly select an unvisited data point</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">If it has ≥ MinPts neighbors within distance ε, create a new cluster and add the point and its neighbors</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">If it does not meet the MinPts threshold, mark it as noise</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Repeat until all data points have been visited</div></div>
+    </div>
+
+    <h4>Advantages of DBSCAN over K-Means</h4>
+    <ul>
+      <li>Handles clusters of <strong>arbitrary shape</strong> (not just spherical)</li>
+      <li>Does <strong>not require knowing K</strong> in advance</li>
+      <li>Can detect and label <strong>outliers/noise</strong></li>
+      <li>Relatively insensitive to initial parameter choice</li>
+      <li>Scalable to large datasets — only computes pairwise distances between neighboring points</li>
+    </ul>
+
+    <h3>Association Mining with Apriori</h3>
+    <p><span class="def">Apriori</span> is the most widely used method for discovering association rules. It identifies frequent itemsets — groups of items that appear together in transactions — and derives "if-then" rules describing their relationships.</p>
+    <p><strong>Apriori Property:</strong> If an itemset is frequent, all its subsets must also be frequent. If an itemset is infrequent, all its supersets are also infrequent. This prunes the search space and improves efficiency.</p>
+
+    <h4>Key Metrics</h4>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>Support</h5>
+        <p>How often an item or combination appears in all transactions. Higher support = more significant presence.<br><em>e.g., Bread appears in 20% of transactions.</em></p>
+      </div>
+      <div class="card">
+        <h5>Confidence</h5>
+        <p>Likelihood that item Y is purchased when item X is purchased. Measures strength of association.<br><em>e.g., If bread → butter 75% of the time.</em></p>
+      </div>
+      <div class="card">
+        <h5>Lift</h5>
+        <p>How much more likely two items are bought together vs. independently. Lift > 1 = strong positive association.</p>
+      </div>
+    </div>
+
+    <h4>Steps of Apriori Algorithm</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Set parameters</strong> — define minimum support threshold and minimum confidence threshold</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Find frequent 1-itemsets</strong> — count occurrences of each single item; keep those meeting the support threshold</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Generate candidate 2-itemsets</strong> — combine frequent 1-itemsets into pairs; calculate their support; prune infrequent ones</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Extend to 3-itemsets and beyond</strong> — repeat until no more frequent itemsets can be found</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Generate association rules</strong> — from frequent itemsets, generate rules and calculate confidence; keep rules meeting the confidence threshold</div></div>
+    </div>
+
+    <h4>Applications of Apriori</h4>
+    <ul>
+      <li><strong>E-commerce:</strong> Recommend products frequently bought together (laptop + laptop bag)</li>
+      <li><strong>Food Delivery:</strong> Identify popular combos (burger + fries) for combo deals</li>
+      <li><strong>Streaming Services:</strong> Recommend related content based on co-viewing patterns</li>
+      <li><strong>Financial Services:</strong> Analyze spending habits to suggest personalized offers</li>
+      <li><strong>Health & Fitness:</strong> Suggest workout plans based on past activity patterns</li>
+    </ul>
+
+    <h3>FP-Growth Algorithm</h3>
+    <p><span class="def">FP-Growth</span> (Frequent Pattern Growth) efficiently mines frequent itemsets from large transactional datasets. Unlike Apriori, which suffers from high computational cost due to candidate generation and multiple database scans, FP-Growth avoids these inefficiencies by compressing data into an <strong>FP-Tree</strong> and extracting patterns directly from it.</p>
+
+    <h4>How FP-Growth Works</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Compute item frequencies</strong> — scan dataset once to count occurrence of each item</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Order items by frequency</strong> — sort every transaction in descending order by item frequency; allows FP-tree compression</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Construct the FP-Tree</strong> — insert sorted transactions one by one, merging shared prefixes</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Determine conditional pattern bases</strong> — for each item, collect all prefix paths leading to it</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Build conditional FP-Trees</strong> — construct smaller FP-trees from each conditional pattern base</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Extract frequent itemsets</strong> — mine all frequent itemsets from the conditional trees</div></div>
+    </div>
+
+    <h4>Why FP-Growth is Efficient</h4>
+    <ul>
+      <li>Scans the database only <strong>twice</strong></li>
+      <li>Avoids generating all candidate item combinations</li>
+      <li>Stores data in a compact tree, reducing redundancy</li>
+      <li>Uses conditional trees to mine deeper patterns efficiently</li>
+    </ul>
+
+    <div class="highlight warn">
+      <strong>Apriori vs FP-Growth:</strong> Apriori performs multiple database scans and generates candidate itemsets at every level — slow for large datasets. FP-Growth compresses everything into an FP-Tree with just 2 scans, making it significantly faster and more memory-efficient.
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== 3.2 ===================== -->
+<div class="section" id="s32">
+  <div class="section-header">
+    <span class="num">3.2</span>
+    Anomaly Detection — Isolation Forest, Autoencoders
+  </div>
+  <div class="section-body">
+
+    <h3>What is Anomaly Detection?</h3>
+    <p><span class="def">Anomaly detection</span> (also known as outlier detection) is the process of identifying data points, events, or patterns that <strong>deviate significantly from expected behavior</strong> in a dataset. These anomalies often indicate critical issues such as fraud, system failures, or security breaches.</p>
+    <ul>
+      <li>Used across finance, healthcare, manufacturing, and cybersecurity</li>
+      <li>Closely coupled with time series analysis — anomalies are deviations from past norms</li>
+      <li>Early detection can prevent cascading damage (e.g., power grid failures, financial fraud)</li>
+    </ul>
+
+    <h4>Applications of Anomaly Detection</h4>
+    <div class="grid grid-3">
+      <div class="card"><h5>Fraud Detection</h5><p>Identifying unusual financial transactions in banking and insurance.</p></div>
+      <div class="card"><h5>Cybersecurity</h5><p>Detecting irregular network traffic or unauthorized access attempts.</p></div>
+      <div class="card"><h5>Healthcare</h5><p>Monitoring patient vitals for abnormal patterns indicating health issues.</p></div>
+      <div class="card"><h5>Manufacturing</h5><p>Identifying defects in production lines or predicting equipment failures.</p></div>
+      <div class="card"><h5>IT Operations</h5><p>Monitoring server logs for unusual patterns to prevent system failures.</p></div>
+    </div>
+
+    <h3>Importance in Cybersecurity</h3>
+    <p>Anomaly detection identifies deviations in user activity, network behavior, or system events that indicate potential threats. Types of anomalies include:</p>
+    <ul>
+      <li><strong>Unusual login patterns:</strong> Login at odd hours, from foreign IPs, or multiple geographic locations — indicates credential compromise</li>
+      <li><strong>Privilege escalation:</strong> Standard user executing admin commands or accessing restricted resources</li>
+      <li><strong>Lateral movement:</strong> Account or process accessing systems it typically never interacts with</li>
+      <li><strong>Data exfiltration:</strong> Sudden surge in outbound traffic involving sensitive data or unrecognized destinations</li>
+      <li><strong>Unusual process behavior:</strong> Processes spawning unexpectedly, executing from non-standard directories, or making unauthorized registry changes</li>
+      <li><strong>Application misuse:</strong> Users performing actions outside their normal usage pattern — e.g., downloading reports in bulk</li>
+      <li><strong>Unexpected service activity:</strong> New ports being opened, services restarting frequently, or protocols used in unexpected ways</li>
+      <li><strong>Time-based anomalies:</strong> Deviations in CPU usage, memory spikes, or authentication attempt rates over time</li>
+    </ul>
+
+    <h3>Isolation Forest</h3>
+    <p><span class="def">Isolation Forest</span> is highly effective in identifying outliers in large datasets. It isolates anomalies based on <strong>how easily they can be separated from the rest of the data</strong>. Built on decision trees (like Random Forests), it is an unsupervised model with no pre-defined labels.</p>
+    <p>Key insight: anomalies are few and different — they are easier to isolate and require fewer random cuts in a tree. Normal points require deeper trees to isolate.</p>
+
+    <h4>How Isolation Forest Works</h4>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content">A random sub-sample of data is selected and assigned to a binary tree (Isolation Tree / iTree)</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Branching starts by selecting a random feature, then a random threshold (between the feature's min and max values)</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Data points with value less than the threshold go left; otherwise right — creating a binary split</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">Process repeats recursively until each point is isolated or max depth is reached</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">This is repeated to build an ensemble of iTrees (the Isolation Forest)</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content">During scoring, each data point is traversed through all iTrees. An <strong>anomaly score</strong> is assigned based on depth — shallow depth = anomaly (score = −1), deep = normal (score = 1)</div></div>
+    </div>
+
+    <div class="highlight">
+      Samples that travel <strong>deeper</strong> into the tree are less likely to be anomalies (needed more cuts). Samples in <strong>shorter branches</strong> are anomalies (easier to separate). Anomaly score of <strong>−1</strong> = anomaly; <strong>+1</strong> = normal.
+    </div>
+
+    <h4>Use in Cybersecurity</h4>
+    <p>Isolation Forest is commonly used for detecting rare attack patterns such as <strong>privilege misuse or unusual file access</strong>.</p>
+
+    <h3>Autoencoders for Anomaly Detection</h3>
+    <p><span class="def">Autoencoders</span> are neural networks designed to learn efficient representations of data through an encode-decode process. The network consists of:</p>
+    <ul>
+      <li><strong>Encoder:</strong> Compresses input data into a lower-dimensional latent representation by progressively reducing neuron counts per layer</li>
+      <li><strong>Decoder:</strong> Reconstructs the original data from the compressed representation through layers that progressively increase in size</li>
+    </ul>
+
+    <h4>How Autoencoders Detect Anomalies</h4>
+    <p>Autoencoders trained on normal data become highly efficient at reconstructing similar normal patterns but <strong>struggle to reconstruct anomalous patterns</strong> they haven't seen during training. This difference in reconstruction quality — measured as <strong>reconstruction error</strong> — is the basis for anomaly detection. High reconstruction error = likely anomaly.</p>
+
+    <h4>Why Autoencoders are Useful</h4>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Unsupervised Learning Capability</h5>
+        <p>Don't require labeled anomalous data during training — practical since anomalies are rare and hard to collect. They learn normal data structure and detect deviations.</p>
+      </div>
+      <div class="card">
+        <h5>High-Dimensional Data Handling</h5>
+        <p>Traditional methods struggle with the curse of dimensionality. Autoencoders naturally handle high-dimensional inputs by learning meaningful lower-dimensional representations.</p>
+      </div>
+      <div class="card">
+        <h5>Non-Linear Pattern Recognition</h5>
+        <p>Unlike PCA-based detection, autoencoders capture complex non-linear relationships through deep architecture, detecting subtle anomalies in complex datasets.</p>
+      </div>
+      <div class="card">
+        <h5>Adaptive Threshold Learning</h5>
+        <p>No manual threshold setting required — systems learn appropriate decision boundaries from the distribution of reconstruction errors observed during training.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== 3.3 ===================== -->
+<div class="section" id="s33">
+  <div class="section-header">
+    <span class="num">3.3</span>
+    Clustering Methods for Cybersecurity Threat Detection
+  </div>
+  <div class="section-body">
+
+    <h3>Overview</h3>
+    <p>Clustering methods are instrumental in identifying cybersecurity threats by <strong>grouping similar data points to uncover patterns and anomalies</strong>. These methods enhance efficiency and precision of threat detection, enabling faster incident response and reduced false positives.</p>
+
+    <h4>Clustering Algorithms and Their Cyber Applications</h4>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>K-Means</h5>
+        <p>Partition-based clustering dividing data into K clusters based on similarity to centroids. In cybersecurity, used to group network traffic and identify deviations from normal patterns. Data points far from any cluster centroid may indicate suspicious activity.</p>
+      </div>
+      <div class="card">
+        <h5>DBSCAN</h5>
+        <p>Density-based clustering, very effective for anomaly detection. Forms clusters in dense regions and marks low-density points as noise. Widely used to detect DDoS attacks — sudden traffic spikes create abnormal patterns that stand out from normal behavior.</p>
+      </div>
+      <div class="card">
+        <h5>Hierarchical Clustering</h5>
+        <p>Creates a tree-like structure (dendrogram) representing relationships between data points. In cybersecurity, helps analyze similarities between attack patterns and group different types of malware or intrusion activities based on behavior.</p>
+      </div>
+      <div class="card">
+        <h5>Gaussian Mixture Models (GMM)</h5>
+        <p>Probabilistic clustering method assuming data is generated from multiple distributions. Useful for modeling complex behaviors in network traffic and detecting subtle anomalies not easily identified by simple clustering methods.</p>
+      </div>
+    </div>
+
+    <h3>Applications of Clustering in Cybersecurity</h3>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>1. Intrusion Detection Systems (IDS)</h5>
+        <p>Clustering detects unauthorized access by identifying unusual patterns in network traffic. Activities that do not belong to normal clusters are flagged as potential intrusions.</p>
+      </div>
+      <div class="card">
+        <h5>2. Malware Detection</h5>
+        <p>Files and programs are grouped based on behavior or structure. Similar malware samples form clusters; unknown or new malware appears as separate clusters, enabling early detection.</p>
+      </div>
+      <div class="card">
+        <h5>3. Network Anomaly Detection</h5>
+        <p>Clustering identifies unusual network behavior such as sudden traffic increases, unexpected communication patterns, or suspicious IP activity — indicators of cyber attacks.</p>
+      </div>
+      <div class="card">
+        <h5>4. User Behavior Analysis</h5>
+        <p>User activities (login times, access patterns, system usage) are clustered. Deviations from normal user behavior clusters indicate insider threats or compromised accounts.</p>
+      </div>
+      <div class="card">
+        <h5>5. Phishing and Fraud Detection</h5>
+        <p>Clustering groups similar emails or URLs. Suspicious or malicious ones appear as anomalies and can be flagged for further investigation.</p>
+      </div>
+      <div class="card">
+        <h5>6. Endpoint Configuration Monitoring</h5>
+        <p>Periodic snapshots of endpoint configurations are clustered to identify outlier endpoints with irregular configurations. PCA is used to improve efficiency; original feature values are used for explainability.</p>
+      </div>
+    </div>
+
+    <div class="highlight tip">
+      <strong>Key Takeaway:</strong> Clustering doesn't require labeled attack data. It finds what is "normal" and flags what is different — making it powerful for detecting unknown/zero-day threats.
+    </div>
+
+  </div>
+</div>
+
+<!-- ===================== 3.4 ===================== -->
+<div class="section" id="s34">
+  <div class="section-header">
+    <span class="num">3.4</span>
+    Network Traffic Analysis
+  </div>
+  <div class="section-body">
+
+    <h3>What is Network Traffic Analysis (NTA)?</h3>
+    <p><span class="def">Network Traffic Analysis (NTA)</span> is the process of monitoring and examining data moving across a network to understand its behavior and performance. It helps security teams detect threats, analyze communication patterns, and maintain a secure and reliable network.</p>
+    <ul>
+      <li>Monitors real-time traffic to identify anomalies</li>
+      <li>Detects cyber threats like malware, scans, and data exfiltration</li>
+      <li>Helps troubleshoot performance issues and bottlenecks</li>
+      <li>Provides visibility into user, device, and application behavior</li>
+      <li>Supports investigations with stored logs and packet data</li>
+    </ul>
+
+    <h4>Importance of NTA</h4>
+    <div class="grid grid-2">
+      <div class="card"><h5>Early Threat Detection</h5><p>Detect anomalies like sudden traffic spikes or odd connection attempts before major damage occurs.</p></div>
+      <div class="card"><h5>Unmasking Stealthy Attacks</h5><p>NTA inspects packet details to reveal threats hiding within normal-looking traffic.</p></div>
+      <div class="card"><h5>Pattern Recognition</h5><p>Learns recurring behaviors and alerts when suspicious patterns reappear.</p></div>
+      <div class="card"><h5>Adaptive Defense</h5><p>Continuous traffic monitoring helps quickly patch new weaknesses as attacker methods evolve.</p></div>
+    </div>
+
+    <h3>Unsupervised Learning in NTA</h3>
+    <p>Unsupervised learning algorithms analyze network traffic to identify normal network behavior and detect deviations. The process follows these stages:</p>
+
+    <h4>Stage 1: Data Gathering and Processing</h4>
+    <p>Network traffic data is collected using different monitoring techniques:</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <h5>Packet-Level Analysis</h5>
+        <p>Packet capture tools (Wireshark, tcpdump) record every packet including: source/destination IP, protocol type (TCP/UDP/ICMP), packet size, header information, payload data. Data format: PCAP files.</p>
+      </div>
+      <div class="card">
+        <h5>Flow-Level Analysis</h5>
+        <p>Flow-based monitoring (NetFlow, IPFIX) and Firewall/IDS logs. Data formats: CSV logs, NetFlow records.</p>
+      </div>
+    </div>
+
+    <h4>Stage 2: Feature Extraction</h4>
+    <p>Feature extraction converts raw network packets into meaningful numerical values usable by ML algorithms. Raw packets contain low-level data (headers, payload, binary) which cannot be directly used. Key features extracted include:</p>
+    <ul>
+      <li>Flow duration</li>
+      <li>Total packets and total bytes</li>
+      <li>Packet size mean</li>
+      <li>Protocol type</li>
+      <li>TCP flags</li>
+      <li>Inter-arrival time</li>
+    </ul>
+    <div class="highlight purple">After feature extraction, raw traffic is converted into a tabular dataset (rows and columns) suitable for unsupervised learning analysis.</div>
+
+    <h4>Stage 3: Data Preprocessing</h4>
+    <p>Preprocessing is crucial before applying unsupervised learning. Raw data may contain noise, missing values, and inconsistent formats. Main steps:</p>
+    <ul>
+      <li><strong>Removing Missing Values</strong></li>
+      <li><strong>Encoding Categorical Features</strong></li>
+      <li><strong>Data Normalization</strong> — unsupervised algorithms are sensitive to data scale</li>
+    </ul>
+
+    <h4>Stage 4: Apply Unsupervised Algorithm</h4>
+    <div class="grid grid-3">
+      <div class="card"><h5>K-Means Clustering</h5><p>Groups traffic into clusters. Points far from clusters = suspicious.</p></div>
+      <div class="card"><h5>DBSCAN</h5><p>Better for anomaly detection — marks low-density points as noise/attack traffic.</p></div>
+      <div class="card"><h5>Autoencoders (Deep Learning)</h5><p>Learn normal traffic patterns; high reconstruction error = anomaly.</p></div>
+    </div>
+
+    <h4>Stage 5: Identify and Validate Anomalies</h4>
+    <p>After model execution, the following are flagged as suspicious: small clusters, noise points, outliers, high reconstruction error. Security team then checks flagged traffic, confirms whether it is an attack or false alarm, and improves feature selection accordingly.</p>
+
+  </div>
+</div>
+
+<!-- ===================== 3.5 ===================== -->
+<div class="section" id="s35">
+  <div class="section-header">
+    <span class="num">3.5</span>
+    Monitoring User and Entity Behavior (UEBA)
+  </div>
+  <div class="section-body">
+
+    <h3>What is UEBA?</h3>
+    <p><span class="def">User and Entity Behavior Analytics (UEBA)</span> is a cybersecurity approach that uses smart algorithms and machine learning to spot unusual activities across networks. It detects suspicious activities within networks by analyzing how effectively users operate inside the network — before major consequences occur.</p>
+    <p>UEBA does <strong>not focus on preventing threats</strong> from entering, but rather on <strong>detecting abnormal behavior</strong> of users and entities already inside the network.</p>
+
+    <h3>How UEBA Works</h3>
+    <p>UEBA constantly collects and appraises vast amounts of information on user behaviors within applications, traffic patterns across networks, and device operations. Using AI, UEBA establishes the <strong>characteristic (baseline) behavior</strong> of an individual or system. Any variation from this baseline triggers alerts to the security team.</p>
+    <p>Examples of variations UEBA detects: data accesses outside job description, uncommon login credential attempts, abnormal application usage patterns.</p>
+
+    <h4>UEBA Use Cases</h4>
+    <div class="grid grid-3">
+      <div class="card">
+        <h5>Insider Threats</h5>
+        <p>Spots when employees or insiders behave abnormally, indicating they may have gained unauthorized entry into systems or resources.</p>
+      </div>
+      <div class="card">
+        <h5>Compromised Accounts</h5>
+        <p>Recognizes strange login activities or attempts to access sensitive data, indicating stolen credentials.</p>
+      </div>
+      <div class="card">
+        <h5>Intrusion Detection</h5>
+        <p>Immediate spikes in data downloads or abnormal traces in network traffic indicate possible breaches or infections.</p>
+      </div>
+    </div>
+
+    <h3>How UEBA Enables Faster Threat Detection</h3>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Understanding Normal Behavior:</strong> UEBA establishes what is normal for any individual or entity based on past activities — typical login times, file access patterns, interaction modes</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>Detecting Unusual Behavior:</strong> Intelligent software recognizes unusual present-time activities — logging in from unfamiliar locations or accessing rarely-accessed sensitive data</div></div>
+      <div class="step"><div class="step-num"></div><div class="step-content"><strong>End-to-End Security:</strong> UEBA monitors everyone's patterns simultaneously — capable of detecting coordinated attacks where multiple users behave oddly at once</div></div>
+    </div>
+
+    <h3>Detecting Deviations Using Unsupervised Learning</h3>
+    <p>Unsupervised anomaly detection identifies unusual patterns without requiring labeled examples. Useful when anomalies are rare, diverse, or unknown in advance. The key assumption: <strong>anomalies are statistically or structurally different from the majority of data</strong>.</p>
+
+    <h4>Common Approaches</h4>
+    <table>
+      <thead>
+        <tr><th>Method</th><th>Technique</th><th>How it Detects Anomalies</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Statistical</td><td>Z-Score / Percentiles</td><td>Points falling far from the mean (many standard deviations away) or beyond percentile thresholds are flagged</td></tr>
+        <tr><td>Distance / Density-Based</td><td>KNN, Local Outlier Factor (LOF)</td><td>Points far from dense clusters of normal data are anomalies; effective for multidimensional datasets</td></tr>
+        <tr><td>Clustering-Based</td><td>K-Means, DBSCAN</td><td>Points not belonging to any cluster or belonging to very small clusters are anomalies</td></tr>
+        <tr><td>Machine Learning</td><td>Isolation Forest</td><td>Points isolated quickly (short tree path) are anomalies</td></tr>
+        <tr><td>Machine Learning</td><td>One-Class SVM</td><td>Learns boundary around normal data; flags points outside this boundary</td></tr>
+        <tr><td>Machine Learning</td><td>Autoencoders</td><td>High reconstruction error indicates anomalous input</td></tr>
+        <tr><td>Time-Series</td><td>Moving Averages, Seasonal Decomposition</td><td>Deviations from moving average or residual components after decomposition flag anomalies</td></tr>
+      </tbody>
+    </table>
+
+    <h4>Applications</h4>
+    <ul>
+      <li><strong>Cybersecurity and Fraud Detection:</strong> Identifying unusual login patterns, transactions, or network activity</li>
+      <li><strong>Structural Health Monitoring (SHM):</strong> Detecting changes in bridge vibrations or modal frequencies indicating damage</li>
+      <li><strong>Traffic Flow Analysis:</strong> Detecting abnormal traffic conditions or congestion patterns</li>
+      <li><strong>Industrial Monitoring:</strong> Flagging equipment failures or sensor malfunctions in manufacturing systems</li>
+    </ul>
+
+    <div class="highlight tip">
+      <strong>UEBA vs Traditional Security:</strong> Traditional tools (firewalls, signature-based IDS) block known threats at the perimeter. UEBA works inside the network, catching threats that have already bypassed the perimeter by monitoring behavioral anomalies over time.
+    </div>
+
+  </div>
+</div>
+
+<!-- QUICK REVISION -->
+<div style="margin:3rem 0 1rem; border:1px solid var(--mod3); border-radius:8px; padding:1.5rem; background:rgba(167,139,250,0.05);">
+  <h2 style="color:var(--mod3);font-size:1.2rem;margin-bottom:1rem">⚡ Quick Revision — High-Frequency Topics</h2>
+  <div class="grid grid-2">
+    <div>
+      <h4>Always Know</h4>
+      <ul>
+        <li>K-Means steps + when to use vs DBSCAN</li>
+        <li>DBSCAN parameters: Eps and MinPts</li>
+        <li>Apriori: Support, Confidence, Lift formulas</li>
+        <li>Apriori property (anti-monotonicity)</li>
+        <li>FP-Growth vs Apriori (why FP-Growth is faster)</li>
+        <li>Isolation Forest anomaly score: −1 = anomaly, +1 = normal</li>
+        <li>Autoencoder: encoder → latent → decoder, reconstruction error</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Key Differences to Remember</h4>
+      <ul>
+        <li>K-Means: needs K, spherical clusters | DBSCAN: no K needed, arbitrary shapes, handles noise</li>
+        <li>Apriori: multiple DB scans, generates candidates | FP-Growth: 2 scans, FP-Tree, no candidates</li>
+        <li>Isolation Forest: shallow tree path = anomaly (easy to isolate)</li>
+        <li>Autoencoders: high reconstruction error = anomaly (never seen in training)</li>
+        <li>UEBA: behavioral baseline inside network (vs perimeter defense)</li>
+        <li>NTA pipeline: Collect → Feature Extract → Preprocess → Cluster/Detect → Validate</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="print-note">
+  Machine Learning for Cybersecurity — Module 3 · Compiled from course slides<br>
+  K.J. Somaiya College of Engineering · Honour Programme in Cyber Security · SVU2023-R2
+</div>
+
+</body>
+</html>
