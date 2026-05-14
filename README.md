@@ -1,3 +1,6 @@
-cc mod 4 & 5 -> https://dharmikchandel.github.io/sem6notes/CC%20mod%204%20&%205%20notes.html
+cc mod 4 & 5 -> https://dharmikchandel.github.io/sem6notes/cc-module-4+5.html
 
-iot mod 3 & 4 -> https://dharmikchandel.github.io/sem6notes/IoT%20mod%203%20&%204%20notes.html
+iot mod 3 & 4 -> https://dharmikchandel.github.io/sem6notes/iot-module-3+4.html
+
+mlcs mod 1 & 2 -> https://dharmikchandel.github.io/sem6notes/mlcs-module-1+2.html
+mlcs mod 3 -> https://dharmikchandel.github.io/sem6notes/mlcs-module-3.html
